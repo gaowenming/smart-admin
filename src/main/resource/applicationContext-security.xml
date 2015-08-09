@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	<http access-denied-page="/403.jsp" use-expressions="true">
+		<intercept-url pattern="/login.jsp" filters="none" />
+		<intercept-url pattern="/resource/**" filters="none" />
+		<intercept-url pattern="/common/**" filters="none" />
+		<intercept-url pattern="/403.jsp" filters="none" />
+		<intercept-url pattern="/404.jsp" filters="none" />
+		<intercept-url pattern="/error.jsp" filters="none" />
+		<!-- (1)login-page:登录页面。 (2)authentication-failure-url:验证失败地址。 (3)default-target-url:登录成功地址。 
+			(4)always-use-default-target：指定了是否在身份验证通过后总是跳转到default-target-url属性指定的URL。 
+			(5)invalidate-session：指定在退出系统时是否要销毁Session。 -->
+		<form-login login-page="/login.jsp"
+			authentication-failure-url="/login.jsp?error=true"
+			authentication-success-handler-ref="smartLoginSuccessHandler"  
+			default-target-url="/index.jsp" always-use-default-target="true" />
+		<logout invalidate-session="true" logout-success-url="/login.jsp" />
+
+		<custom-filter ref="resourceSecurityInterceptor" after="FILTER_SECURITY_INTERCEPTOR" />
+
+		<!-- session管理器 -->
+		<session-management invalid-session-url="/login.jsp"
+			session-fixation-protection="none" session-authentication-error-url="/login.jsp">
+			<!-- session-registry-ref 可以查看当前在线用户 -->
+			<concurrency-control expired-url="/login.jsp"
+				session-registry-ref="sessionRegistry" />
+		</session-management>
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+		<!--securityManagerService实现了UserDetailsService接口 -->
+		<authentication-provider user-service-ref="securityManagerService">
+			<!-- MD5加密，根据username作为盐值 -->
+			<password-encoder hash="md5">
+				<salt-source user-property="username" />
+			</password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+
+
+	<!-- 必须满足所有条件才能通过 -->
+	<b:bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<b:property name="allowIfAllAbstainDecisions" value="false" />
+		<b:property name="decisionVoters">
+			<b:list>
+				<!-- RoleVoter默认角色名称都要以ROLE_开头，否则不会被计入权限控制，如果要修改前缀，可以通过对rolePrefix属性进行修改 -->
+				<b:bean class="org.springframework.security.access.vote.RoleVoter" />
+
+			</b:list>
+		</b:property>
+	</b:bean>
+
+	<!-- sessionRegistry -->
+	<b:bean id="sessionRegistry"
+		class="org.springframework.security.core.session.SessionRegistryImpl">
+	</b:bean>
+	
+	<!-- 自定义的登录成功handler -->
+	<b:bean id="smartLoginSuccessHandler" class="org.smart.meeting.core.security.SmartLoginSuccessHandler">  
+	    <b:property name="defaultTargetUrl" value="/index.jsp"></b:property>  
+	</b:bean> 
+
+
+
+	<!-- 权限认证 start -->
+	<b:bean id="resourceSecurityInterceptor"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<b:property name="authenticationManager" ref="authenticationManager" />
+		<b:property name="accessDecisionManager" ref="accessDecisionManager" />
+		<!-- 自定义的资源拦截器 -->
+		<b:property name="securityMetadataSource" ref="securityMetadataSourceInterceptor" />
+		<b:property name="observeOncePerRequest" value="false" />
+		<b:property name="validateConfigAttributes" value="true" />
+	</b:bean>
+
+	<b:bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<b:property name="basename"
+			value="classpath:securityMessage_zh_CN"></b:property>
+	</b:bean>
+
+	<!-- 权限认证 end -->
+
+</b:beans>
