@@ -1,2 +1,2 @@
 # smart-admin
-管理平台
+基于bootstarp的管理平台
