@@ -1,0 +1,53 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ include file="/common/includes.jsp"%>
+<%@ include file="/common/style.jsp"%>
+
+<body>
+	<form method="post" action="${_contextPath}user/addRole.do"
+		id="contentForm" name="contentForm" role="form"
+		cssClass="form-horizontal"
+		data-validator-option="{theme:'yellow_right_effect',stopOnError:true}">
+
+		<div class="table-responsive">
+			<table width="100%" style="border: 0px;"
+				class="table table-striped table-bordered">
+
+				<tr>
+					<td align="right" width="25%">用户名:</td>
+					<td align="left"><input type="hidden" name="userId"
+						value="${dataObj.id }"> ${dataObj.username }</td>
+				</tr>
+
+				<tr>
+					<td align="right" width="25%">角色:</td>
+					<td align="left">
+						<c:forEach items="${listItem}" var="chosenItem">
+								<div class="checkbox">
+									<label> <input type="checkbox" name="roleIds"  value="${chosenItem.id}"  <c:if test="${chosenItem.chosen }">checked='checked'</c:if>> ${chosenItem.value}
+									</label>
+								</div>
+						</c:forEach>
+					</td>
+				</tr>
+
+
+
+
+
+
+				<tr>
+					<td class="text-right"></td>
+					<td class="text-left">
+						<button type="submit" class="btn btn-primary">
+							<i class="icon-ok  icon-white"></i> 提交
+						</button> <a href="${_contextPath}user/list.do" class="btn btn-primary"><i
+							class=" icon-circle-arrow-left "></i> 返回</a>
+					</td>
+				</tr>
+
+
+			</table>
+		</div>
+	</form>
+</body>
+</html>

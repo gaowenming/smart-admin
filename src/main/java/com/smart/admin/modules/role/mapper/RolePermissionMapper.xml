@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smart.admin.modules.role.mapper.RolePermissionMapper">
+
+
+	<resultMap id="rolePermissionMap" type="rolePermission">
+		<result property="id" column="id" />
+		<association property="permission" column="permission_id" select="com.smart.admin.modules.permission.mapper.PermissionMapper.get"/>
+		<association property="role" column="role_id" select="com.smart.admin.modules.role.mapper.RoleMapper.get" />
+	</resultMap>
+
+
+	<insert id="save" parameterType="rolePermission" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into ts_role_permission(permission_id,role_id) values
+		(#{permission.id},#{role.id})
+	</insert>
+
+	<!-- 分页查询 -->
+	<select id="findPageList" parameterType="java.util.Map"
+		resultMap="rolePermissionMap">
+		select * from ts_role_permission
+		limit #{start} ,#{pageSize}
+	</select>
+
+	<select id="count" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from ts_role_permission
+	</select>
+
+	<select id="get" resultMap="rolePermissionMap" parameterType="Integer">
+		select * from ts_role_permission where id=#{id}
+	</select>
+
+	<delete id="delete" parameterType="Integer">
+		delete from ts_role_permission where id=#{id}
+	</delete>
+
+	<!-- 批量删除 -->
+	<delete id="deleteBatch">
+		delete from ts_role_permission where id in
+		<foreach collection="array" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<select id="findAllList" resultMap="rolePermissionMap">
+		select * from ts_role_permission order by id desc
+	</select>
+	
+	<select id="selectByRoleId"  resultMap="rolePermissionMap">
+		select * from ts_role_permission where role_id=#{roleId} order by id desc
+	</select>
+	
+	<select id="selectByPermissionId" resultMap="rolePermissionMap">
+		select * from ts_role_permission where permission_id=#{permissionId} order by id desc
+	</select>
+	
+
+</mapper>
+

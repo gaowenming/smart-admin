@@ -1,0 +1,1 @@
+package com.smart.admin.modules.role.service;import com.smart.admin.core.IBaseService;import com.smart.admin.modules.role.bean.Role;/** * Description: <roleservice>. <br> * <p> * <service接口层> * </p> * generate time:2014-6-15 15:44:08 *  * @version V1.0 */public interface IRoleService extends IBaseService<Role> {}

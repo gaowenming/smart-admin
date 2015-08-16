@@ -1,0 +1,1 @@
+package com.smart.admin.modules.loginlog.service;import com.smart.admin.core.IBaseService;import com.smart.admin.modules.loginlog.bean.LoginLog;/** * Description: <loginLogservice>. <br> * <p> * <service接口层> * </p> * generate time:2014-12-13 21:20:26 *  * @version V1.0 */public interface ILoginLogService extends IBaseService<LoginLog>{	}

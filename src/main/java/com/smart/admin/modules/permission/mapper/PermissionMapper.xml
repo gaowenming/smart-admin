@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smart.admin.modules.permission.mapper.PermissionMapper">
+
+
+	<resultMap id="permissionResultMap" type="permission">
+		<result property="id" column="id" />
+		<result property="permName" column="perm_name" />
+		<result property="permUrl" column="perm_url" />
+		<result property="permOrder" column="perm_order" />
+		<result property="permType" column="perm_type" />
+		<result property="remark" column="remark" />
+		<collection property="parentPermission" column="p_id" select="selectParentPermById" />
+		<collection property="subPermissions" column="id"  select="selectSubPermById"/>
+		<collection property="rolePermission" column="id" select="com.smart.admin.modules.role.mapper.RolePermissionMapper.selectByPermissionId" />
+	</resultMap>
+	
+	
+	<select id="selectParentPermById" resultMap="permissionResultMap">
+	   select * from ts_permission where id = #{id}
+	</select>
+	
+	<select id="selectSubPermById" resultMap="permissionResultMap">
+	   select * from ts_permission where p_id = #{pId}
+	</select>
+
+
+	<insert id="save" parameterType="permission" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into ts_permission(perm_name,perm_url,perm_order,perm_type,remark) values
+		(#{permName},#{permUrl},#{permOrder},#{permType},#{remark})
+	</insert>
+
+	<!-- 分页查询 -->
+	<select id="findPageList" parameterType="java.util.Map"
+		resultMap="permissionResultMap">
+		select * from ts_permission
+		<where>
+			<if test="permName != null">
+				 perm_name like "%"#{permName}"%"
+			</if>
+			<if test="permUrl != null">
+				and perm_url like "%"#{permUrl}"%"
+			</if>
+		</where>
+		limit #{start} ,#{pageSize}
+	</select>
+
+	<select id="count" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from ts_permission
+		<where>
+			<if test="name != null">
+				 perm_name like "%"#{permName}"%"
+			</if>
+			<if test="name != null">
+				and perm_url like "%"#{permUrl}"%"
+			</if>
+		</where>
+	</select>
+	
+	<update id="update" parameterType="permission">
+	  update ts_permission set
+		  perm_name =#{permName},
+		  perm_url=#{permUrl},
+		  perm_order=#{permOrder},
+		  perm_type =#{permType},
+		  remark=#{remark}
+	  where id= #{id}
+	</update>
+	
+	<select id="get" resultMap="permissionResultMap" parameterType="Integer">
+	 	 select * from ts_permission where id=#{id}
+	</select>
+	
+	<delete id="delete" parameterType="Integer">
+		 delete from ts_permission where id=#{id}
+	</delete>
+    
+    <!-- 批量删除 -->
+    <delete id="deleteBatch">
+            delete from ts_permission where id in  
+	    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">   
+	        #{item}   
+	    </foreach>  
+    </delete>  
+    
+     <select id="findAllList" resultMap="permissionResultMap">
+        select * from ts_permission order by perm_order desc 
+    </select>
+    
+      <select id="findAllMenuList" resultMap="permissionResultMap">
+         select * from ts_permission where perm_type = 2 order by perm_order desc 
+      </select>
+
+
+</mapper>
+

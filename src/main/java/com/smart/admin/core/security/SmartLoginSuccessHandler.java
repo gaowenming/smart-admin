@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
-import org.smart.meeting.core.logger.LogFactory;
-import org.smart.meeting.modules.loginlog.bean.LoginLog;
-import org.smart.meeting.modules.loginlog.service.ILoginLogService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import com.smart.admin.modules.loginlog.bean.LoginLog;
+import com.smart.admin.modules.loginlog.service.ILoginLogService;
 
 /**
  * Description: <类功能描述>. <br>
@@ -30,7 +31,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  * @version V1.0
  */
 public class SmartLoginSuccessHandler implements AuthenticationSuccessHandler, InitializingBean {
-	private Logger logger = LogFactory.getInstance().getLogger();
+	private Logger logger = LoggerFactory.getLogger(SmartLoginSuccessHandler.class);
 	private String defaultTargetUrl;
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	@Autowired

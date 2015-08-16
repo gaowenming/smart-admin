@@ -3,8 +3,8 @@ package com.smart.admin.core;
 import java.io.Serializable;
 import java.util.List;
 
-import org.smart.dao.page.Page;
-import org.smart.dao.page.Sorter;
+import com.smart.admin.core.page.Page;
+import com.smart.admin.core.page.Sorter;
 
 /**
  * 
@@ -33,34 +33,11 @@ public interface IBaseService<T> {
 	public void update(T model) throws Exception;
 
 	/**
-	 * 更新模型对象
-	 * 
-	 * @param model
-	 * 
-	 */
-	public void saveOrUpdate(T model) throws Exception;
-
-	/**
-	 * 更新模型对象
-	 * 
-	 * @param model
-	 * 
-	 */
-	public void merge(T model) throws Exception;
-
-	/**
 	 * 删除模型对象
 	 * 
 	 * @param id
 	 */
 	public void delete(Serializable id) throws Exception;
-
-	/**
-	 * 删除模型对象
-	 * 
-	 * @param model
-	 */
-	public void delete(T model) throws Exception;
 
 	/**
 	 * 根据主键获取模型对象
@@ -97,5 +74,5 @@ public interface IBaseService<T> {
 	 * @param ids
 	 * 
 	 */
-	public void delete(Serializable... ids) throws Exception;
+	public void deleteBatch(Serializable... ids) throws Exception;
 }

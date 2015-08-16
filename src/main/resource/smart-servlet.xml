@@ -9,7 +9,7 @@
             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
 	<!-- 对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 排除对service的扫描，为了事务处理在service上生效 -->
-	<context:component-scan base-package="org.smart.*">
+	<context:component-scan base-package="com.smart.*">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
@@ -19,7 +19,7 @@
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
 			<bean
-				class="org.smart.meeting.core.controller.UTF8StringHttpMessageConverter" />
+				class="com.smart.admin.core.controller.UTF8StringHttpMessageConverter" />
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
@@ -36,7 +36,7 @@
 
 	<!-- json转换器 -->
 	<bean id="mappingJacksonHttpMessageConverter"
-		class="org.smart.meeting.core.controller.MappingFastJsonHttpMessageConverter">
+		class="com.smart.admin.core.controller.MappingFastJsonHttpMessageConverter">
 		<property name="supportedMediaTypes" value="application/json" />
 		<property name="serializerFeature">
 			<array>
@@ -58,16 +58,12 @@
 	 <!-- 默认访问跳转到登录页面(即定义无需Controller的url<->view直接映射) -->  
     <mvc:view-controller path="/" view-name="index"/> 
 
-
-
 	 <mvc:interceptors>  
         <mvc:interceptor>  
-            <!-- 需拦截的地址 -->  
             <mvc:mapping path="/*/*" />  
-            <bean class="org.smart.meeting.core.interceptor.InitializingInterceptor" />  
+            <bean class="com.smart.admin.core.interceptor.InitializingInterceptor" />  
         </mvc:interceptor>  
     </mvc:interceptors>  
-
 
 
 	<!-- 文件上传 -->

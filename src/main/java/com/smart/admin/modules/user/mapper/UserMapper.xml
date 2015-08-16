@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smart.admin.modules.user.mapper.UserMapper">
+
+
+	<resultMap id="userResultMap" type="user">
+		<result property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="fullname" column="fullname" />
+		<result property="password" column="password" />
+		<result property="createTime" column="createTime" />
+		<result property="mobile" column="mobile" />
+		<result property="email" column="email" />
+		<result property="status" column="status" />
+		<collection property="userRole" column="id" select="com.smart.admin.modules.role.mapper.UserRoleMapper.selectByUserId" />
+	</resultMap>
+
+
+	<insert id="save" parameterType="dic" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into ts_user(username,fullname,password,createTime,mobile,email,status) values
+		(#{username},#{fullname},#{password},#{createTime},#{mobile},#{email},#{status})
+	</insert>
+
+	<!-- 分页查询 -->
+	<select id="findPageList" parameterType="java.util.Map"
+		resultMap="userResultMap">
+		select * from ts_user
+		<where>
+			<if test="username != null">
+				 username like "%"#{username}"%"
+			</if>
+			<if test="fullname != null">
+				 and fullname like "%"#{fullname}"%"
+			</if>
+		</where>
+		limit #{start} ,#{pageSize}
+	</select>
+
+	<select id="count" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from ts_user
+		<where>
+			<if test="name != null">
+				 username like "%"#{username}"%"
+			</if>
+			<if test="name != null">
+				 and fullname like "%"#{fullname}"%"
+			</if>
+		</where>
+	</select>
+	
+	<update id="update" parameterType="dic">
+	  update ts_user set
+	  username=#{username},
+	  fullname=#{fullname},
+	  password=#{password},
+	  createTime=#{createTime},
+	  mobile =#{mobile},
+	  email=#{email},
+	  status=#{status}
+	  where id= #{id}
+	</update>
+	
+	<select id="get" resultMap="userResultMap" parameterType="Integer">
+	 	 select * from ts_user where id=#{id}
+	</select>
+	
+	<select id="selectByUsername" resultMap="userResultMap" parameterType="String">
+	 	 select * from ts_user where username=#{username}
+	</select>
+	
+	
+	<delete id="delete" parameterType="Integer">
+		 delete from ts_user where id=#{id}
+	</delete>
+    
+    <!-- 批量删除 -->
+    <delete id="deleteBatch">
+            delete from ts_user where id in  
+	    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">   
+	        #{item}   
+	    </foreach>  
+    </delete>  
+    
+    <update id="updateUserPassword" >
+     	update ts_user  set password = #{0} where username= #{1}
+    </update>
+    
+    <select id="findAllList" resultMap="userResultMap">
+        select * from ts_user order by id desc 
+    </select>
+
+
+</mapper>
+

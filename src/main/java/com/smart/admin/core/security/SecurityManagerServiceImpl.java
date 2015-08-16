@@ -6,17 +6,18 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.smart.meeting.modules.permission.bean.Permission;
-import org.smart.meeting.modules.permission.service.IPermissionService;
-import org.smart.meeting.modules.role.bean.Role;
-import org.smart.meeting.modules.role.service.IRolePermissionService;
-import org.smart.meeting.modules.user.bean.User;
-import org.smart.meeting.modules.user.service.IUserService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.smart.admin.modules.permission.bean.Permission;
+import com.smart.admin.modules.permission.service.IPermissionService;
+import com.smart.admin.modules.role.bean.Role;
+import com.smart.admin.modules.role.service.IRolePermissionService;
+import com.smart.admin.modules.user.bean.User;
+import com.smart.admin.modules.user.service.IUserService;
 
 /**
  * 
@@ -71,7 +72,7 @@ public class SecurityManagerServiceImpl implements ISecurityManagerService, User
 			if (!roles.isEmpty()) {
 				StringBuffer sb = new StringBuffer();
 				for (Role rr : roles) {
-					sb.append(rr.getRole_code());
+					sb.append(rr.getRoleCode());
 					sb.append(",");
 				}
 				urlAuthorities.put(url, sb.substring(0, sb.length() - 1));

@@ -9,6 +9,15 @@
 
 	<!-- Alias -->
 	<typeAliases>
+	    <typeAlias alias="systemConfig" type="com.smart.admin.modules.config.bean.SystemConfig" />
+	    <typeAlias alias="dic" type="com.smart.admin.modules.dic.bean.Dic" />
+	    <typeAlias alias="loginLog" type="com.smart.admin.modules.loginlog.bean.LoginLog" />
+	    <typeAlias alias="user" type="com.smart.admin.modules.user.bean.User" />
+	    <typeAlias alias="role" type="com.smart.admin.modules.role.bean.Role" />
+	    <typeAlias alias="permission" type="com.smart.admin.modules.permission.bean.Permission" />
+	    <typeAlias alias="rolePermission" type="com.smart.admin.modules.role.bean.RolePermission" />
+	    <typeAlias alias="userRole" type="com.smart.admin.modules.role.bean.UserRole" />
 	</typeAliases>
+	
 	
 </configuration> 

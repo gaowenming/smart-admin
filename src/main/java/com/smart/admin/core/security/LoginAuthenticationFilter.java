@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.smart.meeting.modules.user.bean.User;
+import com.smart.admin.modules.user.bean.User;
 
 /**
  * 登陆过滤器

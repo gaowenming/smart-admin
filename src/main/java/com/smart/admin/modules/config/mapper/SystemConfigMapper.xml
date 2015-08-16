@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smart.admin.modules.config.mapper.SystemConfigMapper">
+	
+	<insert id="save" parameterType="systemConfig" useGeneratedKeys="true" keyProperty="id">
+			insert into ts_systemconfig(name,config_key,config_value) values (#{name},#{configKey},#{configValue})
+	</insert>
+	
+	<resultMap id="systemConfigMap" type="systemConfig">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="configKey" column="config_key" />
+		<result property="configValue" column="config_value" />
+	</resultMap>
+
+	<!-- 分页查询 -->
+	<select id="findPageList" parameterType="java.util.Map"
+		resultMap="systemConfigMap">
+		select * from ts_systemconfig
+		<where>
+			<if test="name != null">
+				 name like "%"#{name}"%"
+			</if>
+			<if test="configKey != null">
+				 and config_key like "%"#{configKey}"%"
+			</if>
+		</where>
+		
+		    <if test="sortField != null and sortType != null">
+				 order by #{sortField}  #{sortType}
+			</if>
+	
+		limit #{start} ,#{pageSize}
+	</select>
+
+	<select id="count" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from ts_systemconfig
+		<where>
+			<if test="name != null">
+				 name like "%"#{name}"%"
+			</if>
+			<if test="configKey != null">
+				and config_key like "%"#{configKey}"%"
+			</if>
+		</where>
+	</select>
+	
+	<update id="update" parameterType="systemConfig">
+	  update ts_systemconfig set
+	  name=#{name},
+	  config_key=#{configKey},
+	  config_value=#{configValue}
+	  where id= #{id}
+	</update>
+	
+	<select id="get" resultMap="systemConfigMap" parameterType="Integer">
+	 	 select * from ts_systemconfig where id=#{id}
+	</select>
+	
+	<delete id="delete" parameterType="Integer">
+		 delete from ts_systemconfig where id=#{id}
+	</delete>
+    
+    <!-- 批量删除 -->
+    <delete id="deleteBatch">
+            delete from ts_systemconfig where id in  
+	    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">   
+	        #{item}   
+	    </foreach>  
+    </delete>  
+    
+    <select id="selectByKey" resultMap="systemConfigMap" parameterType="String">
+	 	 select * from ts_systemconfig where config_key=#{configKey}
+	</select>
+	
+	
+	
+</mapper>
+

@@ -1,9 +1,11 @@
 package com.smart.admin.core.security;
 
-import org.smart.meeting.modules.user.bean.User;
-import org.smart.util.MD5;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.smart.admin.modules.user.bean.User;
+import com.smart.utils.MD5;
+
 
 /**
  * 

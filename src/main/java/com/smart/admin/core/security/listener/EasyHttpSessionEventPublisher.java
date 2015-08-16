@@ -12,7 +12,7 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
  * @date 2013-5-27 下午2:42:21
  * 
  */
-public class SmartHttpSessionEventPublisher extends HttpSessionEventPublisher {
+public class EasyHttpSessionEventPublisher extends HttpSessionEventPublisher {
 	@Override
 	public void sessionCreated(HttpSessionEvent event) {
 		super.sessionCreated(event);

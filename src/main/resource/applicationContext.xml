@@ -25,25 +25,21 @@
 	</context:component-scan>
 
 
-	<!-- 引入文件 -->
+	<!-- 引入文件
 	<import resource="classpath:spring/applicationContext-cache.xml" />
 	<import resource="classpath:spring/applicationContext-pool.xml" />
+	 -->
 
-	<!-- 这个bean 由spring提供，用来加载properties文件 
+	<!-- 这个bean 由spring提供，用来加载properties文件 -->
 
 	<bean id="propertyConfigurer"
-
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-
 		<property name="location">
-
 			<value>classpath:db.properties</value>
-
 		</property>
-
 	</bean>
 
--->
+
 	<!-- 配置数据源 -->
 	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
@@ -93,11 +89,11 @@
 		可指定configLocation属性，再在mybatis总配置文件中采用mapper引入实体类映射文件 自动扫描bean目录, 省掉Configuration.xml里的手工配置 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="mapperLocations" value="classpath*:com/**/*_mapper.xml" />
+		<property name="mapperLocations" value="classpath*:com/**/*Mapper.xml" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.**.dao" />
+		<property name="basePackage" value="com.**.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 
@@ -119,7 +115,6 @@
 	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="add*" propagation="REQUIRED" />
-			<tx:method name="append*" propagation="REQUIRED" />
 			<tx:method name="insert*" propagation="REQUIRED" />
 			<tx:method name="save*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
@@ -128,13 +123,11 @@
 			<tx:method name="delete*" propagation="REQUIRED" />
 			<tx:method name="remove*" propagation="REQUIRED" />
 			<tx:method name="create*" propagation="REQUIRED" />
-			<tx:method name="confirmBuy*" propagation="REQUIRED"  rollback-for="java.lang.Exception" />
 			<tx:method name="get*" propagation="SUPPORTS" />
 			<tx:method name="find*" propagation="SUPPORTS" />
 			<tx:method name="load*" propagation="SUPPORTS" />
 			<tx:method name="search*" propagation="SUPPORTS" />
 			<tx:method name="select*" propagation="SUPPORTS" />
-			<tx:method name="datagrid*" propagation="SUPPORTS" />
 			<tx:method name="*" propagation="SUPPORTS" />
 		</tx:attributes>
 	</tx:advice>
