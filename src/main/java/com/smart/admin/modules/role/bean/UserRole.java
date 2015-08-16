@@ -18,6 +18,8 @@ public class UserRole implements Serializable {
 
 	private static final long serialVersionUID = -2031708648082745150L;
 	private Integer id;
+	private Integer roleId;
+	private Integer userId;
 
 	private User user;
 
@@ -45,6 +47,22 @@ public class UserRole implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 }

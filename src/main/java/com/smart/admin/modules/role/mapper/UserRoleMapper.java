@@ -13,4 +13,6 @@ import com.smart.admin.modules.role.bean.UserRole;
  */
 public interface UserRoleMapper extends IBaseMapper<UserRole> {
 	public List<UserRole> selectByUserId(int userId) throws Exception;
+	
+	public void deleteByUser(int userId) throws Exception;
 }

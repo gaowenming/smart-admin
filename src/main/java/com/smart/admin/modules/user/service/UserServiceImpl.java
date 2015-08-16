@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smart.admin.core.page.Page;
@@ -28,7 +27,7 @@ import com.smart.admin.modules.user.mapper.UserMapper;
 @Service("userService")
 public class UserServiceImpl implements IUserService {
 
-	@Resource
+	@Autowired
 	private UserMapper userMapper;
 
 	@Override

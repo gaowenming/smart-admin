@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.smart.admin.core.controller.BaseController;
 import com.smart.admin.core.page.Page;
 import com.smart.admin.core.page.Sorter;
+import com.smart.admin.core.security.SecurityMetadataSourceInterceptor;
+import com.smart.admin.core.security.SpringBeanContainer;
 import com.smart.admin.modules.permission.bean.Permission;
 import com.smart.admin.modules.permission.service.IPermissionService;
 import com.smart.admin.modules.role.bean.Role;
@@ -40,13 +41,13 @@ import com.smart.utils.ListSortUtils;
 @Controller
 public class RoleController extends BaseController<Role> {
 
-	@Resource
+	@Autowired
 	private IRoleService roleService;
 
-	@Resource
+	@Autowired
 	private IPermissionService permissionService;
 
-	@Resource
+	@Autowired
 	private IRolePermissionService rolePermissionService;
 
 	/** binder用于bean属性的设置 */
@@ -323,9 +324,9 @@ public class RoleController extends BaseController<Role> {
 		try {
 			rolePermissionService.addRolePermission(permissionIds, roleId);
 
-//			SecurityMetadataSourceInterceptor interceptor = SpringBeanContainer.getBean("securityMetadataSourceInterceptor");
-//			// 刷新权限
-//			interceptor.reloadConfigAttribute();
+			SecurityMetadataSourceInterceptor interceptor = SpringBeanContainer.getBean("securityMetadataSourceInterceptor");
+			// 刷新权限
+			interceptor.reloadConfigAttribute();
 
 		} catch (Exception e) {
 			logger.error(e.getMessage());

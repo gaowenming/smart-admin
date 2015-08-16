@@ -4,16 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smart.admin.core.page.Page;
 import com.smart.admin.core.page.Sorter;
-import com.smart.admin.modules.permission.bean.Permission;
-import com.smart.admin.modules.permission.service.IPermissionService;
 import com.smart.admin.modules.role.bean.Role;
 import com.smart.admin.modules.role.bean.RolePermission;
 import com.smart.admin.modules.role.mapper.RolePermissionMapper;
@@ -28,14 +25,8 @@ import com.smart.admin.modules.role.mapper.RolePermissionMapper;
 public class RolePermissionServiceImpl implements IRolePermissionService {
 	private static final Logger logger = LoggerFactory.getLogger(RolePermissionServiceImpl.class);
 
-	@Resource
+	@Autowired
 	private RolePermissionMapper rolePermissionMapper;
-
-	@Resource
-	private IPermissionService permissionService;
-
-	@Resource
-	private IRoleService roleService;
 
 	@Override
 	public void save(RolePermission model) throws Exception {
@@ -77,25 +68,18 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
 	@Override
 	public void addRolePermission(Integer[] permissionIds, Integer roleId) throws Exception {
 		// 1、删除原角色权限
-		List<RolePermission> list = rolePermissionMapper.selectByRoleId(roleId);
-		for (RolePermission rp : list) {
-			rolePermissionMapper.delete(rp.getId());
-		}
-
-		Role role = roleService.get(roleId);
+		rolePermissionMapper.deleteByRole(roleId);
 
 		if (permissionIds != null && permissionIds.length > 0) {
 			for (Integer permissionId : permissionIds) {
 				if (permissionId != null) {
-					Permission permission = permissionService.get(permissionId);
 					RolePermission rolePermission = new RolePermission();
-					rolePermission.setPermission(permission);
-					rolePermission.setRole(role);
-					save(rolePermission);
+					rolePermission.setPermissionId(permissionId);
+					rolePermission.setRoleId(roleId);
+					rolePermissionMapper.save(rolePermission);
 				}
 			}
 		}
-
 	}
 
 	@Override

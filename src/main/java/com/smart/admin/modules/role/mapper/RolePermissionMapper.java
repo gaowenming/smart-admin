@@ -10,4 +10,6 @@ public interface RolePermissionMapper extends IBaseMapper<RolePermission> {
 	public List<RolePermission> selectByPermissionId(int permissionId) throws Exception;
 
 	public List<RolePermission> selectByRoleId(int roleId) throws Exception;
+
+	public void deleteByRole(int roleId) throws Exception;
 }

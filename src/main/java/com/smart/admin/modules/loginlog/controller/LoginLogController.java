@@ -4,8 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +30,7 @@ import com.smart.admin.modules.loginlog.service.ILoginLogService;
 @Controller
 public class LoginLogController extends BaseController<LoginLog> {
 
-	@Resource
+	@Autowired
 	protected ILoginLogService loginLogService;
 
 	/** binder用于bean属性的设置 */

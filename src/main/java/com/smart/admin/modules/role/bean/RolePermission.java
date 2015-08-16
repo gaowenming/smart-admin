@@ -22,6 +22,10 @@ public class RolePermission implements Serializable {
 
 	private Integer id;
 
+	private Integer roleId;
+
+	private Integer permissionId;
+
 	private Permission permission;
 
 	private Role role;
@@ -48,6 +52,22 @@ public class RolePermission implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+
+	public Integer getPermissionId() {
+		return permissionId;
+	}
+
+	public void setPermissionId(Integer permissionId) {
+		this.permissionId = permissionId;
 	}
 
 }

@@ -6,9 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -30,7 +29,7 @@ import org.springframework.util.StringUtils;
 @Service(value = "securityMetadataSourceInterceptor")
 public class SecurityMetadataSourceInterceptor implements FilterInvocationSecurityMetadataSource, InitializingBean {
 
-	@Resource
+	@Autowired
 	private ISecurityManagerService securityManagerService;
 	private static Map<String, List<ConfigAttribute>> urlMap = new HashMap<String, List<ConfigAttribute>>();
 	private UrlMatcher urlMatcher;

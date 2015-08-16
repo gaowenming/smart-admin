@@ -167,7 +167,6 @@
 				<!-- 导航栏 start -->
 				<ul class="nav nav-list">
 
-					<sec:authorize  access="hasRole('ROLE_ADMIN')">  
 					<li><a href="#" class="dropdown-toggle" style="color: #2B7DBC"> <i
 							class="icon-cog"></i> <span style="font-weight: bold; color: #2B7DBC"
 							class="menu-text">系统管理</span> <b class="arrow icon-angle-down"></b>
@@ -199,7 +198,6 @@
 
 						</ul></li>
 						
-					</sec:authorize>
 					
 
 

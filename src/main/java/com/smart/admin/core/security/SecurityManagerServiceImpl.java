@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,11 +28,11 @@ import com.smart.admin.modules.user.service.IUserService;
  */
 @Service(value = "securityManagerService")
 public class SecurityManagerServiceImpl implements ISecurityManagerService, UserDetailsService {
-	@Resource
+	@Autowired
 	private IUserService userService;
-	@Resource
+	@Autowired
 	private IPermissionService permissionService;
-	@Resource
+	@Autowired
 	private IRolePermissionService rolePermissionService;
 
 	private static final Map<String, String> urlAuthorities = new HashMap<String, String>();

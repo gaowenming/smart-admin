@@ -5,6 +5,8 @@
 
 	<resultMap id="userRoleResultMap" type="userRole">
 		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="roleId" column="role_id" />
 		<association  property="user" column="user_id" select="com.smart.admin.modules.user.mapper.UserMapper.get" />
 		<association property="role" column="role_id" select="com.smart.admin.modules.role.mapper.RoleMapper.get" />
 	</resultMap>
@@ -13,7 +15,7 @@
 	<insert id="save" parameterType="userRole" useGeneratedKeys="true"
 		keyProperty="id">
 		insert into ts_user_role(user_id,role_id) values
-		(#{user.id},#{role.id})
+		(#{userId},#{roleId})
 	</insert>
 
 	<!-- 分页查询 -->
@@ -33,6 +35,10 @@
 
 	<delete id="delete" parameterType="Integer">
 		delete from ts_user_role where id=#{id}
+	</delete>
+	
+	<delete id="deleteByUser" parameterType="Integer">
+		delete from ts_user_role where user_id=#{userId}
 	</delete>
 
 	<!-- 批量删除 -->

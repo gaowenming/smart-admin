@@ -4,8 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +31,7 @@ import com.smart.admin.modules.permission.service.IPermissionService;
 @Controller
 public class PermissionController extends BaseController<Permission> {
 
-	@Resource
+	@Autowired
 	private IPermissionService permissionService;
 
 	/** binder用于bean属性的设置 */

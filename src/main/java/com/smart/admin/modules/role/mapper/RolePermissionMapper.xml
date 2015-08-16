@@ -5,6 +5,8 @@
 
 	<resultMap id="rolePermissionMap" type="rolePermission">
 		<result property="id" column="id" />
+		<result property="roleId" column="role_id" />
+		<result property="permissionId" column="permission_id" />
 		<association property="permission" column="permission_id" select="com.smart.admin.modules.permission.mapper.PermissionMapper.get"/>
 		<association property="role" column="role_id" select="com.smart.admin.modules.role.mapper.RoleMapper.get" />
 	</resultMap>
@@ -13,7 +15,7 @@
 	<insert id="save" parameterType="rolePermission" useGeneratedKeys="true"
 		keyProperty="id">
 		insert into ts_role_permission(permission_id,role_id) values
-		(#{permission.id},#{role.id})
+		(#{permissionId},#{roleId})
 	</insert>
 
 	<!-- 分页查询 -->
@@ -33,6 +35,10 @@
 
 	<delete id="delete" parameterType="Integer">
 		delete from ts_role_permission where id=#{id}
+	</delete>
+	
+	<delete id="deleteByRole" parameterType="Integer">
+		delete from ts_role_permission where role_id=#{roleId}
 	</delete>
 
 	<!-- 批量删除 -->
