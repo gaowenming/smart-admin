@@ -17,7 +17,7 @@
 <meta http-equiv="expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta charset="utf-8" />
-<title>会议签到系统</title>
+<title>管理平台</title>
 <script type="text/javascript"
 	src="${basePath}resource/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
@@ -68,7 +68,7 @@
 		<div class="navbar-container" id="navbar-container">
 			<div class="navbar-header pull-left">
 				<a href="#" class="navbar-brand"> <small> <i
-						class="icon-leaf"></i> 会议签到系统
+						class="icon-leaf"></i> 管理平台
 				</small>
 				</a>
 				<!-- /.brand -->

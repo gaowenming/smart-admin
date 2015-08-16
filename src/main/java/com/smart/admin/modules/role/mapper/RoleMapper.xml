@@ -11,16 +11,6 @@
 		<collection property="userRole" column="id" select="com.smart.admin.modules.role.mapper.UserRoleMapper.selectUserRoleByRoleId"/>
 		<collection property="rolePermission" column="id" select="com.smart.admin.modules.role.mapper.RolePermissionMapper.selectByRoleId"/>
 	</resultMap>
-	
-	<!-- 
-	<select id="selectUserRoleByRoleId" resultMap="userRoleResultMap">
-	    select * from ts_user_role where role_id = #{role_id}
-	</select>
-	
-	<select id="selectRolePermissionByRoleId" resultMap="rolePermissionMap">
-	    select * from ts_role_permission where role_id = #{role_id}
-	</select>
- -->
 
 	<insert id="save" parameterType="role" useGeneratedKeys="true"
 		keyProperty="id">
@@ -68,6 +58,21 @@
     <!-- 批量删除 -->
     <delete id="deleteBatch">
             delete from ts_role where id in  
+	    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">   
+	        #{item}   
+	    </foreach>  
+    </delete>  
+    
+    <!-- 级联删除 -->
+    <delete id="deleteRoleOfUser">
+            delete from ts_user_role where role_id in  
+	    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">   
+	        #{item}   
+	    </foreach>  
+    </delete>  
+    
+    <delete id="deleteRolePermission">
+            delete from ts_role_permission where role_id in  
 	    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">   
 	        #{item}   
 	    </foreach>  

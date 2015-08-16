@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>欢迎登录会议签到后台管理系统</title>
+<title>管理平台</title>
 <link href="${basePath}resource/css/login.css" rel="stylesheet"
 	type="text/css" />
 <link rel="stylesheet"

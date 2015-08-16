@@ -1,5 +1,6 @@
 package com.smart.admin.modules.user.mapper;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.smart.admin.core.IBaseMapper;
@@ -16,5 +17,7 @@ public interface UserMapper extends IBaseMapper<User> {
 	public List<User> selectByUsername(String username) throws Exception;
 
 	public void updateUserPassword(String username, String password) throws Exception;
+
+	public void deleteUserRole(Serializable... ids) throws Exception;
 
 }

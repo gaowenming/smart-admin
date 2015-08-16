@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.smart.admin.core.page.Page;
 import com.smart.admin.core.page.Sorter;
+import com.smart.admin.core.security.SecurityUserHolder;
 import com.smart.admin.modules.role.bean.RolePermission;
 import com.smart.admin.modules.role.bean.UserRole;
 import com.smart.admin.modules.user.bean.User;
@@ -81,6 +82,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void deleteBatch(Serializable... ids) throws Exception {
 		userMapper.deleteBatch(ids);
+		userMapper.deleteUserRole(ids);
 	}
 
 	@Override
@@ -110,9 +112,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public boolean updateUserPassword(String username, String newPassword) throws Exception {
-		// String md5_password =
-		// SecurityUserHolder.getSecurityPassWord(newPassword, username);
-		String md5_password = "";
+		String md5_password = SecurityUserHolder.getSecurityPassWord(newPassword, username);
 		userMapper.updateUserPassword(username, md5_password);
 		return true;
 	}

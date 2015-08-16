@@ -82,6 +82,14 @@
 	    </foreach>  
     </delete>  
     
+    <!-- 级联删除用户的角色信息 -->
+    <delete id="deleteUserRole">
+            delete from ts_user_role where user_id in  
+	    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">   
+	        #{item}   
+	    </foreach>  
+    </delete>  
+    
     <update id="updateUserPassword" >
      	update ts_user  set password = #{0} where username= #{1}
     </update>

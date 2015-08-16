@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 	<head>
-		<title>会议签到</title>
+		<title>管理平台</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="X-UA-Compatible" content="IE=IE9" />
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
