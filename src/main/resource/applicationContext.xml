@@ -25,11 +25,6 @@
 	</context:component-scan>
 
 
-	<!-- 引入文件
-	<import resource="classpath:spring/applicationContext-cache.xml" />
-	<import resource="classpath:spring/applicationContext-pool.xml" />
-	 -->
-
 	<!-- 这个bean 由spring提供，用来加载properties文件 -->
 
 	<bean id="propertyConfigurer"

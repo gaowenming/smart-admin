@@ -201,96 +201,6 @@
 						
 					</sec:authorize>
 					
-					
-
-
-                    <!-- 标签控制 start -->
-					<sec:authorize  access="hasRole('ROLE_MEET')">  
-
-					<li><a href="#" class="dropdown-toggle" style="color: #2B7DBC"> <i
-							class="icon-list-alt" ></i> <span style="font-weight: bold; color: #2B7DBC"
-							class="menu-text">会议管理</span> <b class="arrow icon-angle-down"></b>
-					</a>
-						<ul class="submenu">
-
-					
-							<li><a href="${basePath}meeting/list.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">会议信息</span>
-							</a></li>
-					
-
-							<li><a href="${basePath}meetingApply/list.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">制码申请</span>
-							</a></li>
-
-						</ul></li>
-
-
-
-					<li><a href="#" class="dropdown-toggle" style="color: #2B7DBC"> <i
-							class="icon-qrcode" ></i> <span style="font-weight: bold; color: #2B7DBC"
-							class="menu-text">凭证管理</span> <b class="arrow icon-angle-down"></b>
-					</a>
-						<ul class="submenu">
-
-							<li><a href="${basePath}qrCodeInfo/list.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">凭证信息</span>
-							</a></li>
-
-							<li><a href="${basePath}makeCodeQueue/list.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">制码失败列表</span>
-							</a></li>
-
-							<li><a href="${basePath}sendCodeLog/list.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">下发失败列表</span>
-							</a></li>
-
-						</ul></li>
-
-					<li><a href="#" class="dropdown-toggle" style="color: #2B7DBC"> <i
-							class="icon-tag"></i> <span style="font-weight: bold; color: #2B7DBC"
-							class="menu-text">签到管理</span> <b class="arrow icon-angle-down"></b>
-					</a>
-						<ul class="submenu">
-
-							<li><a href="${basePath}codeCheckLog/codeCheck.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">会议签到</span>
-							</a></li>
-
-							<li><a href="${basePath}codeCheckLog/codeCheckList.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">签到详情</span>
-							</a></li>
-
-						</ul></li>
-
-
-					<li><a href="#" class="dropdown-toggle" style="color: #2B7DBC"> <i
-							class="icon-picture"></i> <span style="font-weight: bold; color: #2B7DBC"
-							class="menu-text">统计图表</span> <b class="arrow icon-angle-down"></b>
-					</a>
-						<ul class="submenu">
-
-							<li><a href="${basePath}stat/makeCodeStat.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">制码统计</span>
-							</a></li>
-
-							<li><a href="${basePath}stat/checkCodeStat.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">验码统计</span>
-							</a></li>
-
-						</ul></li>
-
-				</sec:authorize>
-				<!-- 标签控制 end -->
 
 
 				<sec:authorize  access="hasRole('ROLE_ADMIN')">  
@@ -299,15 +209,6 @@
 							class="menu-text">系统监控</span> <b class="arrow icon-angle-down"></b>
 					</a>
 						<ul class="submenu">
-
-							<li><a href="${basePath}monitoring"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">JavaMelody监控</span>
-							</a></li>
-
-							<li><a href="${basePath}druid" target="contentIframe">
-									<i class="icon-star"></i> <span class="menu-text">数据库监控</span>
-							</a></li>
 
 							<li><a href="${basePath}loginLog/list.do"
 								target="contentIframe"> <i class="icon-star"></i> <span

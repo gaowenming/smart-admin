@@ -13,14 +13,14 @@
 
 	<insert id="save" parameterType="loginLog" useGeneratedKeys="true"
 		keyProperty="id">
-		insert into ts_dic(username,clientIp,loginTime) values
+		insert into ts_login_log(username,clientIp,loginTime) values
 		(#{username},#{clientIp},#{loginTime})
 	</insert>
 
 	<!-- 分页查询 -->
 	<select id="findPageList" parameterType="java.util.Map"
 		resultMap="dicResultMap">
-		select * from ts_dic
+		select * from ts_login_log
 		<where>
 			<if test="username != null">
 				 username like "%"#{username}"%"
@@ -30,7 +30,7 @@
 	</select>
 
 	<select id="count" parameterType="java.util.Map" resultType="Integer">
-		select count(*) from ts_dic
+		select count(*) from ts_login_log
 		<where>
 			<if test="username != null">
 				 username like "%"#{username}"%"
@@ -39,17 +39,17 @@
 	</select>
 	
 	<select id="get" resultMap="dicResultMap" parameterType="Integer">
-	 	 select * from ts_dic where id=#{id}
+	 	 select * from ts_login_log where id=#{id}
 	</select>
 	
 	
 	<delete id="delete" parameterType="Integer">
-		 delete from ts_dic where id=#{id}
+		 delete from ts_login_log where id=#{id}
 	</delete>
     
     <!-- 批量删除 -->
     <delete id="deleteBatch">
-            delete from ts_dic where id in  
+            delete from ts_login_log where id in  
 	    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">   
 	        #{item}   
 	    </foreach>  
