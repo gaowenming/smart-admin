@@ -1,18 +1,16 @@
 package com.smart.admin.modules.permission.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smart.admin.core.controller.BaseController;
 import com.smart.admin.core.page.Page;
@@ -34,11 +32,7 @@ public class PermissionController extends BaseController<Permission> {
 	@Autowired
 	private IPermissionService permissionService;
 
-	/** binder用于bean属性的设置 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
+	private final static Logger logger = LoggerFactory.getLogger(PermissionController.class);
 
 	/**
 	 * 管理列表页.
@@ -118,7 +112,7 @@ public class PermissionController extends BaseController<Permission> {
 	 * @return
 	 */
 	@RequestMapping("/permission/add.do")
-	public String handleAdd(Permission permission, Model model, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter) {
+	public String handleAdd(Permission permission, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		try {
 			logger.info("handleAdd");
@@ -128,9 +122,9 @@ public class PermissionController extends BaseController<Permission> {
 			e.printStackTrace();
 			message = ERROR_MESSAGE;
 		}
-		model.addAttribute("message", message);
+		attr.addFlashAttribute("message", message);
 
-		return handleList(new Permission(), page, sorter, model);
+		return "redirect:/permission/list.do";
 	}
 
 	/**
@@ -146,7 +140,7 @@ public class PermissionController extends BaseController<Permission> {
 	 * @return
 	 */
 	@RequestMapping("/permission/edit.do")
-	public String handleEdit(@ModelAttribute Permission permission, Model model, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter) {
+	public String handleEdit(@ModelAttribute Permission permission, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		try {
 			logger.info("handleEdit");
@@ -156,9 +150,9 @@ public class PermissionController extends BaseController<Permission> {
 			e.printStackTrace();
 			message = ERROR_MESSAGE;
 		}
-		model.addAttribute("message", message);
+		attr.addFlashAttribute("message", message);
 
-		return handleList(new Permission(), page, sorter, model);
+		return "redirect:/permission/list.do";
 	}
 
 	/**
@@ -171,7 +165,7 @@ public class PermissionController extends BaseController<Permission> {
 	 * @return 视图名称
 	 */
 	@RequestMapping(value = "/permission/delete.do")
-	public String handleDelete(java.lang.Integer[] ids, @ModelAttribute("queryBean") Permission permission, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter, Model model) {
+	public String handleDelete(java.lang.Integer[] ids, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		logger.info("handleDelete");
 		try {
@@ -182,8 +176,9 @@ public class PermissionController extends BaseController<Permission> {
 			message = ERROR_MESSAGE;
 		}
 
-		model.addAttribute("message", message);
-		return handleList(permission, page, sorter, model);
+		attr.addFlashAttribute("message", message);
+
+		return "redirect:/permission/list.do";
 	}
 
 	/**

@@ -62,7 +62,7 @@
 					<td align="left"><select 
 						style="width: 300px;" name="permType" id="permType"
 						data-rule="required">
-							<option value="1">普通链接</option>
+							<option value="1">页面操作</option>
 							<option value="2">导航菜单</option>
 					</select></td>
 				</tr>

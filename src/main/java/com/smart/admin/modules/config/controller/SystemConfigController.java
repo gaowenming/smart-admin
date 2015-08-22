@@ -2,11 +2,14 @@ package com.smart.admin.modules.config.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smart.admin.core.controller.BaseController;
 import com.smart.admin.core.page.Page;
@@ -28,6 +31,8 @@ import com.smart.admin.modules.config.service.ISystemConfigService;
 public class SystemConfigController extends BaseController<SystemConfig> {
 	@Autowired
 	private ISystemConfigService systemConfigService;
+
+	private final static Logger logger = LoggerFactory.getLogger(SystemConfigController.class);
 
 	/**
 	 * 列表
@@ -98,7 +103,7 @@ public class SystemConfigController extends BaseController<SystemConfig> {
 	 * @return
 	 */
 	@RequestMapping("/systemConfig/add.do")
-	public String handleAdd(@ModelAttribute SystemConfig systemConfigBean, Model model, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter) {
+	public String handleAdd(@ModelAttribute SystemConfig systemConfigBean, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		try {
 			logger.info("handleAdd");
@@ -108,9 +113,9 @@ public class SystemConfigController extends BaseController<SystemConfig> {
 			e.printStackTrace();
 			message = ERROR_MESSAGE;
 		}
-		model.addAttribute("message", message);
+		attr.addFlashAttribute("message", message);
 
-		return handleList(new SystemConfig(), page, sorter, model);
+		return "redirect:/systemConfig/list.do";
 	}
 
 	/**
@@ -126,7 +131,7 @@ public class SystemConfigController extends BaseController<SystemConfig> {
 	 * @return
 	 */
 	@RequestMapping("/systemConfig/edit.do")
-	public String handleEdit(@ModelAttribute SystemConfig systemConfigBean, Model model, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter) {
+	public String handleEdit(@ModelAttribute SystemConfig systemConfigBean, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		try {
 			logger.info("handleEdit");
@@ -136,9 +141,9 @@ public class SystemConfigController extends BaseController<SystemConfig> {
 			e.printStackTrace();
 			message = ERROR_MESSAGE;
 		}
-		model.addAttribute("message", message);
+		attr.addFlashAttribute("message", message);
 
-		return handleList(new SystemConfig(), page, sorter, model);
+		return "redirect:/systemConfig/list.do";
 	}
 
 	/**
@@ -151,8 +156,7 @@ public class SystemConfigController extends BaseController<SystemConfig> {
 	 * @return 视图名称
 	 */
 	@RequestMapping(value = "/systemConfig/delete.do")
-	public String handleDelete(Integer[] ids, @ModelAttribute("queryBean") SystemConfig systemConfigBean, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter,
-			Model model) {
+	public String handleDelete(Integer[] ids, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		logger.info("handleDelete");
 		try {
@@ -163,7 +167,7 @@ public class SystemConfigController extends BaseController<SystemConfig> {
 			message = ERROR_MESSAGE;
 		}
 
-		model.addAttribute("message", message);
-		return handleList(systemConfigBean, page, sorter, model);
+		attr.addFlashAttribute("message", message);
+		return "redirect:/systemConfig/list.do";
 	}
 }

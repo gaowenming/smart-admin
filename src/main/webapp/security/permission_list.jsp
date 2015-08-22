@@ -81,7 +81,7 @@
 									<td>${item.permUrl}</td>
 									<td><c:choose>
 											<c:when test="${item.permType == 1}">
-												普通请求
+												页面操作
 											</c:when>
 											<c:otherwise>
 												导航菜单

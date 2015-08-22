@@ -51,7 +51,7 @@
 					<td align="left"><select style="width: 300px;" name="permType"
 						id="permType" data-rule="required">
 							<option value="1"
-								<c:if test='${dataObj.permType==1 }'> selected=selected </c:if>>普通链接</option>
+								<c:if test='${dataObj.permType==1 }'> selected=selected </c:if>>页面操作</option>
 							<option value="2"
 								<c:if test='${dataObj.permType==2 }'> selected=selected </c:if>>导航菜单</option>
 					</select></td>

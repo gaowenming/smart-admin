@@ -1,15 +1,12 @@
 package com.smart.admin.modules.loginlog.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -33,11 +30,7 @@ public class LoginLogController extends BaseController<LoginLog> {
 	@Autowired
 	protected ILoginLogService loginLogService;
 
-	/** binder用于bean属性的设置 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
+	private final static Logger logger = LoggerFactory.getLogger(LoginLogController.class);
 
 	/**
 	 * 管理列表页.

@@ -2,11 +2,14 @@ package com.smart.admin.modules.dic.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smart.admin.core.controller.BaseController;
 import com.smart.admin.core.page.Page;
@@ -28,6 +31,7 @@ public class DicController extends BaseController<Dic> {
 	@Autowired
 	protected IDicService dicService;
 
+	private final static Logger logger = LoggerFactory.getLogger(DicController.class);
 
 	/**
 	 * 管理列表页.
@@ -39,9 +43,7 @@ public class DicController extends BaseController<Dic> {
 	 * @return list.jsp
 	 */
 	@RequestMapping("/dic/list.do")
-	public String handleList(@ModelAttribute("queryBean") Dic dic,
-			@ModelAttribute("_pageBean") Page page,
-			@ModelAttribute("sorter") Sorter sorter, Model model) {
+	public String handleList(@ModelAttribute("queryBean") Dic dic, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter, Model model) {
 		logger.info("[DicController:handleList][begin]");
 		List<Dic> results = null;
 		try {
@@ -102,13 +104,10 @@ public class DicController extends BaseController<Dic> {
 	 * 新增
 	 * 
 	 * @param dic
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/dic/add.do")
-	public String handleAdd(@ModelAttribute Dic dic, Model model,
-			@ModelAttribute("_pageBean") Page page,
-			@ModelAttribute("sorter") Sorter sorter) {
+	public String handleAdd(@ModelAttribute Dic dic, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		try {
 			logger.info("handleAdd");
@@ -118,9 +117,9 @@ public class DicController extends BaseController<Dic> {
 			e.printStackTrace();
 			message = ERROR_MESSAGE;
 		}
-		model.addAttribute("message", message);
+		attr.addFlashAttribute("message", message);
 
-		return handleList(new Dic(), page, sorter, model);
+		return "redirect:/dic/list.do";
 	}
 
 	/**
@@ -136,9 +135,7 @@ public class DicController extends BaseController<Dic> {
 	 * @return
 	 */
 	@RequestMapping("/dic/edit.do")
-	public String handleEdit(@ModelAttribute Dic dic, Model model,
-			@ModelAttribute("_pageBean") Page page,
-			@ModelAttribute("sorter") Sorter sorter) {
+	public String handleEdit(@ModelAttribute Dic dic, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		try {
 			logger.info("handleEdit");
@@ -148,9 +145,9 @@ public class DicController extends BaseController<Dic> {
 			e.printStackTrace();
 			message = ERROR_MESSAGE;
 		}
-		model.addAttribute("message", message);
+		attr.addFlashAttribute("message", message);
 
-		return handleList(new Dic(), page, sorter, model);
+		return "redirect:/dic/list.do";
 	}
 
 	/**
@@ -163,10 +160,7 @@ public class DicController extends BaseController<Dic> {
 	 * @return 视图名称
 	 */
 	@RequestMapping(value = "/dic/delete.do")
-	public String handleDelete(java.lang.Integer[] ids,
-			@ModelAttribute("queryBean") Dic dic,
-			@ModelAttribute("_pageBean") Page page,
-			@ModelAttribute("sorter") Sorter sorter, Model model) {
+	public String handleDelete(java.lang.Integer[] ids, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		logger.info("handleDelete");
 		try {
@@ -177,8 +171,9 @@ public class DicController extends BaseController<Dic> {
 			message = ERROR_MESSAGE;
 		}
 
-		model.addAttribute("message", message);
-		return handleList(dic, page, sorter, model);
+		attr.addFlashAttribute("message", message);
+
+		return "redirect:/dic/list.do";
 	}
 
 }

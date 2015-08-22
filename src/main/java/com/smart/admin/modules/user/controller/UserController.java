@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smart.admin.core.controller.BaseController;
 import com.smart.admin.core.page.Page;
@@ -39,6 +42,8 @@ public class UserController extends BaseController<User> {
 
 	@Autowired
 	private IUserRoleService userRoleService;
+
+	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	/**
 	 * 列表
@@ -109,7 +114,7 @@ public class UserController extends BaseController<User> {
 	 * @return
 	 */
 	@RequestMapping("/user/add.do")
-	public String handleAdd(@ModelAttribute User userBean, Model model, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter) {
+	public String handleAdd(@ModelAttribute User userBean, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		try {
 			logger.info("handleAdd");
@@ -123,9 +128,9 @@ public class UserController extends BaseController<User> {
 			e.printStackTrace();
 			message = ERROR_MESSAGE;
 		}
-		model.addAttribute("message", message);
+		attr.addFlashAttribute("message", message);
 
-		return handleList(new User(), page, sorter, model);
+		return "redirect:/user/list.do";
 	}
 
 	/**
@@ -141,7 +146,7 @@ public class UserController extends BaseController<User> {
 	 * @return
 	 */
 	@RequestMapping("/user/edit.do")
-	public String handleEdit(@ModelAttribute User userBean, Model model, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter) {
+	public String handleEdit(@ModelAttribute User userBean, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		try {
 			User temp = userService.get(userBean.getId());
@@ -155,9 +160,9 @@ public class UserController extends BaseController<User> {
 			e.printStackTrace();
 			message = ERROR_MESSAGE;
 		}
-		model.addAttribute("message", message);
+		attr.addFlashAttribute("message", message);
 
-		return handleList(new User(), page, sorter, model);
+		return "redirect:/user/list.do";
 	}
 
 	/**
@@ -173,7 +178,7 @@ public class UserController extends BaseController<User> {
 	 * @return
 	 */
 	@RequestMapping("/user/changeStatus.do")
-	public String handleChangeStatus(@ModelAttribute("id") Integer id, Model model, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter) {
+	public String handleChangeStatus(@ModelAttribute("id") Integer id, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		try {
 			User userBean = userService.get(id);
@@ -190,9 +195,9 @@ public class UserController extends BaseController<User> {
 			e.printStackTrace();
 			message = ERROR_MESSAGE;
 		}
-		model.addAttribute("message", message);
+		attr.addFlashAttribute("message", message);
 
-		return handleList(new User(), page, sorter, model);
+		return "redirect:/user/list.do";
 	}
 
 	/**
@@ -205,7 +210,7 @@ public class UserController extends BaseController<User> {
 	 * @return 视图名称
 	 */
 	@RequestMapping(value = "/user/delete.do")
-	public String handleDelete(Integer[] ids, @ModelAttribute("queryBean") User userBean, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter, Model model) {
+	public String handleDelete(Integer[] ids, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		logger.info("handleDelete");
 		try {
@@ -216,8 +221,9 @@ public class UserController extends BaseController<User> {
 			message = ERROR_MESSAGE;
 		}
 
-		model.addAttribute("message", message);
-		return handleList(userBean, page, sorter, model);
+		attr.addFlashAttribute("message", message);
+
+		return "redirect:/user/list.do";
 	}
 
 	/**
@@ -270,7 +276,7 @@ public class UserController extends BaseController<User> {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/addRole.do")
-	public String handleAddRole(Model model, Integer[] roleIds, Integer userId, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter) {
+	public String handleAddRole(Model model, Integer[] roleIds, Integer userId, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		logger.info("handleAddRole");
 		try {
@@ -281,8 +287,9 @@ public class UserController extends BaseController<User> {
 			message = ERROR_MESSAGE;
 		}
 
-		model.addAttribute("message", message);
-		return handleList(new User(), page, sorter, model);
+		attr.addFlashAttribute("message", message);
+
+		return "redirect:/user/list.do";
 	}
 
 	/**

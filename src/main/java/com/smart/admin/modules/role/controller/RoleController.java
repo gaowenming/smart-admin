@@ -1,18 +1,16 @@
 package com.smart.admin.modules.role.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smart.admin.core.controller.BaseController;
 import com.smart.admin.core.page.Page;
@@ -50,11 +48,7 @@ public class RoleController extends BaseController<Role> {
 	@Autowired
 	private IRolePermissionService rolePermissionService;
 
-	/** binder用于bean属性的设置 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
+	private final static Logger logger = LoggerFactory.getLogger(RoleController.class);
 
 	/**
 	 * 管理列表页.
@@ -131,7 +125,7 @@ public class RoleController extends BaseController<Role> {
 	 * @return
 	 */
 	@RequestMapping("/role/add.do")
-	public String handleAdd(@ModelAttribute Role role, Model model, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter) {
+	public String handleAdd(@ModelAttribute Role role, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		try {
 			logger.info("handleAdd");
@@ -141,9 +135,9 @@ public class RoleController extends BaseController<Role> {
 			e.printStackTrace();
 			message = ERROR_MESSAGE;
 		}
-		model.addAttribute("message", message);
+		attr.addFlashAttribute("message", message);
 
-		return handleList(new Role(), page, sorter, model);
+		return "redirect:/role/list.do";
 	}
 
 	/**
@@ -159,7 +153,7 @@ public class RoleController extends BaseController<Role> {
 	 * @return
 	 */
 	@RequestMapping("/role/edit.do")
-	public String handleEdit(@ModelAttribute Role role, Model model, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter) {
+	public String handleEdit(@ModelAttribute Role role, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		try {
 			logger.info("handleEdit");
@@ -169,9 +163,9 @@ public class RoleController extends BaseController<Role> {
 			e.printStackTrace();
 			message = ERROR_MESSAGE;
 		}
-		model.addAttribute("message", message);
+		attr.addFlashAttribute("message", message);
 
-		return handleList(new Role(), page, sorter, model);
+		return "redirect:/role/list.do";
 	}
 
 	/**
@@ -184,7 +178,7 @@ public class RoleController extends BaseController<Role> {
 	 * @return 视图名称
 	 */
 	@RequestMapping(value = "/role/delete.do")
-	public String handleDelete(java.lang.Integer[] ids, @ModelAttribute("queryBean") Role role, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter, Model model) {
+	public String handleDelete(java.lang.Integer[] ids, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		logger.info("handleDelete");
 		try {
@@ -195,47 +189,10 @@ public class RoleController extends BaseController<Role> {
 			message = ERROR_MESSAGE;
 		}
 
-		model.addAttribute("message", message);
-		return handleList(role, page, sorter, model);
-	}
+		attr.addFlashAttribute("message", message);
 
-	/**
-	 * 描述 : <跳转到添加权限页面>
-	 * 
-	 * @param model
-	 * @param roleId
-	 * @return
-	 */
-	// @RequestMapping("/role/toAddPermission.do")
-	// public String handleToAddPermission(Model model, Integer roleId) {
-	// logger.info("handleToEdit");
-	// List<Permission> list = null;
-	// List<ChosenItem> listItem = new ArrayList<ChosenItem>();
-	// Role roleBean = null;
-	// try {
-	// roleBean = roleService.get(roleId);
-	// list = permissionService.findAllList();
-	//
-	// for (Permission permission : list) {
-	// boolean b = false;
-	// for (RolePermission rp : roleBean.getRolePermission()) {
-	// if (permission.getId() == rp.getPermission().getId()) {
-	// b = true;
-	// break;
-	// }
-	// }
-	// ChosenItem item = new ChosenItem(permission.getId().toString(),
-	// permission.getPermName(), b);
-	// listItem.add(item);
-	// }
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// logger.error(e.getMessage());
-	// }
-	// model.addAttribute("dataObj", roleBean);
-	// model.addAttribute("listItem", listItem);
-	// return "security/role_addPermission";
-	// }
+		return "redirect:/role/list.do";
+	}
 
 	@RequestMapping("/role/toAddPermission.do")
 	public String handleToAddPermission(Model model, Integer roleId) {
@@ -318,7 +275,7 @@ public class RoleController extends BaseController<Role> {
 	 * @return
 	 */
 	@RequestMapping(value = "/role/addPermission.do")
-	public String handleAddPermission(Model model, Integer[] permissionIds, Integer roleId, @ModelAttribute("_pageBean") Page page, @ModelAttribute("sorter") Sorter sorter) {
+	public String handleAddPermission(Model model, Integer[] permissionIds, Integer roleId, RedirectAttributes attr) {
 		String message = SUCCESS_MESSAGE;
 		logger.info("handleAddPermission");
 		try {
@@ -334,7 +291,8 @@ public class RoleController extends BaseController<Role> {
 			message = ERROR_MESSAGE;
 		}
 
-		model.addAttribute("message", message);
-		return handleList(new Role(), page, sorter, model);
+		attr.addFlashAttribute("message", message);
+
+		return "redirect:/role/list.do";
 	}
 }
