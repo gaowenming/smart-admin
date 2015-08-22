@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import com.smart.admin.modules.role.bean.RolePermission;
 
@@ -13,6 +14,7 @@ import com.smart.admin.modules.role.bean.RolePermission;
  * generate time:2014-6-15 18:42:45
  * 
  */
+@JsonIgnoreProperties(value={"parentPermission","subPermissions","rolePermission"})
 public class Permission implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,6 +32,8 @@ public class Permission implements Serializable {
 	private java.lang.Integer permType;
 
 	private java.lang.String remark;
+	
+	private java.lang.Integer pId;
 
 	@JsonIgnore
 	private Permission parentPermission;
@@ -110,6 +114,14 @@ public class Permission implements Serializable {
 
 	public void setSubPermissions(Set<Permission> subPermissions) {
 		this.subPermissions = subPermissions;
+	}
+
+	public java.lang.Integer getpId() {
+		return pId;
+	}
+
+	public void setpId(java.lang.Integer pId) {
+		this.pId = pId;
 	}
 
 }

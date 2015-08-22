@@ -32,27 +32,21 @@
 	src="${basePath}resource/js/typeahead-bs2.min.js"></script>
 <script type="text/javascript"
 	src="${basePath}resource/js/ace-elements.min.js"></script>
-<script type="text/javascript"
-	src="${basePath}resource/js/ace.min.js"></script>
-<link href="${basePath}resource/css/bootstrap.min.css"
-	rel="stylesheet" />
+<script type="text/javascript" src="${basePath}resource/js/ace.min.js"></script>
+<link href="${basePath}resource/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet"
 	href="${basePath}resource/css/font-awesome.min.css" />
 <link rel="stylesheet" href="${basePath}resource/css/ace.min.css" />
-<link rel="stylesheet"
-	href="${basePath}resource/css/ace-rtl.min.css" />
-<link rel="stylesheet"
-	href="${basePath}resource/css/ace-skins.min.css" />
-<link
-	href="${basePath}resource/jshow/css/bootstrap-modal-bs3patch.css"
+<link rel="stylesheet" href="${basePath}resource/css/ace-rtl.min.css" />
+<link rel="stylesheet" href="${basePath}resource/css/ace-skins.min.css" />
+<link href="${basePath}resource/jshow/css/bootstrap-modal-bs3patch.css"
 	rel="stylesheet" />
 <link href="${basePath}resource/jshow/css/bootstrap-modal.css"
 	rel="stylesheet" />
 <script src="${basePath}resource/js/ace-extra.min.js"></script>
 <script src="${basePath}resource/jshow/js/bootstrap-modalmanager.js"></script>
 <script src="${basePath}resource/jshow/js/bootstrap-modal.js"></script>
-<script
-	src="${basePath}resource/jshow/js/modal.manager.plugin1.0.js"></script>
+<script src="${basePath}resource/jshow/js/modal.manager.plugin1.0.js"></script>
 <script src="${basePath}resource/jshow/js/jshow.utils.js"></script>
 <script src="${basePath}resource/jshow/js/bootbox.js"></script>
 </head>
@@ -167,54 +161,56 @@
 				<!-- 导航栏 start -->
 				<ul class="nav nav-list">
 
-					<li><a href="#" class="dropdown-toggle" style="color: #2B7DBC"> <i
-							class="icon-cog"></i> <span style="font-weight: bold; color: #2B7DBC"
-							class="menu-text">系统管理</span> <b class="arrow icon-angle-down"></b>
-					</a>
-						<ul class="submenu">
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li><a href="#" class="dropdown-toggle"
+							style="color: #2B7DBC"> <i class="icon-cog"></i> <span
+								style="font-weight: bold; color: #2B7DBC" class="menu-text">系统管理</span>
+								<b class="arrow icon-angle-down"></b>
+						</a>
+							<ul class="submenu">
 
-							<li><a href="${basePath}user/list.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">用户管理</span>
-							</a></li>
-							<li><a href="${basePath}role/list.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">角色管理</span>
-							</a></li>
-							<li><a href="${basePath}permission/list.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">权限管理</span>
-							</a></li>
+								<li><a href="${basePath}user/list.do"
+									target="contentIframe"> <i class="icon-star"></i> <span
+										class="menu-text">用户管理</span>
+								</a></li>
+								<li><a href="${basePath}role/list.do"
+									target="contentIframe"> <i class="icon-star"></i> <span
+										class="menu-text">角色管理</span>
+								</a></li>
+								<li><a href="${basePath}permission/list.do"
+									target="contentIframe"> <i class="icon-star"></i> <span
+										class="menu-text">权限管理</span>
+								</a></li>
 
-							<li><a href="${basePath}systemConfig/list.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">系统配置</span>
-							</a></li>
-							
-							<li><a href="${basePath}dic/list.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">字典管理</span>
-							</a></li>
+								<li><a href="${basePath}systemConfig/list.do"
+									target="contentIframe"> <i class="icon-star"></i> <span
+										class="menu-text">系统配置</span>
+								</a></li>
 
-						</ul></li>
-						
-					
+								<li><a href="${basePath}dic/list.do" target="contentIframe">
+										<i class="icon-star"></i> <span class="menu-text">字典管理</span>
+								</a></li>
+
+							</ul></li>
+					</sec:authorize>
 
 
-				<sec:authorize  access="hasRole('ROLE_ADMIN')">  
-					<li><a href="#" class="dropdown-toggle" style="color: #2B7DBC"> <i
-							class="icon-eye-open"></i> <span style="font-weight: bold; color: #2B7DBC"
-							class="menu-text">系统监控</span> <b class="arrow icon-angle-down"></b>
-					</a>
-						<ul class="submenu">
 
-							<li><a href="${basePath}loginLog/list.do"
-								target="contentIframe"> <i class="icon-star"></i> <span
-									class="menu-text">登录日志</span>
-							</a></li>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li><a href="#" class="dropdown-toggle"
+							style="color: #2B7DBC"> <i class="icon-eye-open"></i> <span
+								style="font-weight: bold; color: #2B7DBC" class="menu-text">系统监控</span>
+								<b class="arrow icon-angle-down"></b>
+						</a>
+							<ul class="submenu">
 
-						</ul></li>
-                    </sec:authorize>
+								<li><a href="${basePath}loginLog/list.do"
+									target="contentIframe"> <i class="icon-star"></i> <span
+										class="menu-text">登录日志</span>
+								</a></li>
+
+							</ul></li>
+					</sec:authorize>
 
 
 				</ul>
@@ -269,38 +265,56 @@
 			$(window).resize();
 
 			//修改密码
-			$("#changePassword").click(function() {
+			$("#changePassword")
+					.click(
+							function() {
 
-				if ($("#oldPwd").val() == '' || $("#oldPwd").val().length < 6) {
-					bootbox.alert("<h4>原密码长度小于6!</h4>");
-					return false;
-				}
-				if ($("#newPwd").val() == '' || $("#newPwd").val().length < 6) {
-					bootbox.alert("<h4>新密码长度小于6!</h4>");
-					return false;
-				}
-				if ($("#newPwdConfig").val() == '' || $("#newPwdConfig").val().length < 6) {
-					bootbox.alert("<h4>确认密码长度小于6!</h4>");
-					return false;
-				}
-				if ($("#newPwd").val() != $("#newPwdConfig").val()) {
-					bootbox.alert("<h4>2次密码不一致!</h4>");
-					return false;
-				}
-				$.post("${basePath}user/changePassword.do", {
-					oldPassword : $("#oldPwd").val(),
-					newPassword : $("#newPwdConfig").val()
-				}, function(data) {
-					if(data=='ok'){
-						bootbox.alert('<h4>密码修改成功，请用新密码重新登录！</h4>',function(){  
-									window.location.href='${basePath}j_spring_security_logout' ;   
+								if ($("#oldPwd").val() == ''
+										|| $("#oldPwd").val().length < 6) {
+									bootbox.alert("<h4>原密码长度小于6!</h4>");
+									return false;
+								}
+								if ($("#newPwd").val() == ''
+										|| $("#newPwd").val().length < 6) {
+									bootbox.alert("<h4>新密码长度小于6!</h4>");
+									return false;
+								}
+								if ($("#newPwdConfig").val() == ''
+										|| $("#newPwdConfig").val().length < 6) {
+									bootbox.alert("<h4>确认密码长度小于6!</h4>");
+									return false;
+								}
+								if ($("#newPwd").val() != $("#newPwdConfig")
+										.val()) {
+									bootbox.alert("<h4>2次密码不一致!</h4>");
+									return false;
+								}
+								$
+										.post(
+												"${basePath}user/changePassword.do",
+												{
+													oldPassword : $("#oldPwd")
+															.val(),
+													newPassword : $(
+															"#newPwdConfig")
+															.val()
+												},
+												function(data) {
+													if (data == 'ok') {
+														bootbox
+																.alert(
+																		'<h4>密码修改成功，请用新密码重新登录！</h4>',
+																		function() {
+																			window.location.href = '${basePath}j_spring_security_logout';
+																		});
+													} else {
+														bootbox.alert("<h4>"
+																+ data
+																+ "</h4>");
+														return false;
+													}
+												}, "text");
 							});
-					}else{
-						bootbox.alert("<h4>"+data+"</h4>");
-						return false;	
-					}
-				}, "text");
-			});
 		});
 	</script>
 </body>

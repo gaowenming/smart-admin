@@ -60,7 +60,7 @@
 				<tr>
 					<td align="right" width="25%">上级权限:</td>
 					<td align="left"><select style="width: 300px;"
-						name="parentPermission.id" id="pid">
+						name="pId" id="pid">
 						<c:forEach items="${list}" var="item">
 								<option value="${item.id}" <c:if test="${item.id==dataObj.parentPermission.id }">selected=selected</c:if> >${item.permName}</option>
 						</c:forEach>

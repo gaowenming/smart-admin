@@ -10,6 +10,7 @@
 		<result property="permOrder" column="perm_order" />
 		<result property="permType" column="perm_type" />
 		<result property="remark" column="remark" />
+		<result property="pId" column="p_id" />
 		<collection property="parentPermission" column="p_id" select="selectParentPermById" />
 		<collection property="subPermissions" column="id"  select="selectSubPermById"/>
 		<collection property="rolePermission" column="id" select="com.smart.admin.modules.role.mapper.RolePermissionMapper.selectByPermissionId" />
@@ -27,8 +28,8 @@
 
 	<insert id="save" parameterType="permission" useGeneratedKeys="true"
 		keyProperty="id">
-		insert into ts_permission(perm_name,perm_url,perm_order,perm_type,remark) values
-		(#{permName},#{permUrl},#{permOrder},#{permType},#{remark})
+		insert into ts_permission(perm_name,perm_url,perm_order,perm_type,remark,p_id) values
+		(#{permName},#{permUrl},#{permOrder},#{permType},#{remark},#{pId})
 	</insert>
 
 	<!-- 分页查询 -->
@@ -64,6 +65,7 @@
 		  perm_url=#{permUrl},
 		  perm_order=#{permOrder},
 		  perm_type =#{permType},
+		  p_id =#{pId},
 		  remark=#{remark}
 	  where id= #{id}
 	</update>

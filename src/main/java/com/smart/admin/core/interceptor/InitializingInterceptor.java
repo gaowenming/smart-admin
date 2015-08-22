@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.smart.admin.core.security.SecurityUserHolder;
+
 /**
  * 
  * @author gaowenming
@@ -30,7 +32,7 @@ public class InitializingInterceptor extends HandlerInterceptorAdapter {
 	 // TODO Auto-generated method stub
 	 // log追加：用户名 - sessionID - IP - URL - 请求参数
 	 StringBuffer log = new StringBuffer();
-	// log.append(" - ").append(SecurityUserHolder.getCurrentUsername());
+	 log.append(" - ").append(SecurityUserHolder.getCurrentUsername());
 	 log.append(" - ").append(request.getRemoteAddr());
 	 log.append(" - ").append(request.getServletPath());
 	 if (request.getQueryString() != null) {

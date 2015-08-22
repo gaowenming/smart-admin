@@ -71,7 +71,7 @@
 					<td align="right" width="25%">上级权限:</td>
 					<td align="left"><select c
 						style="width: 300px;" data-width="300px"
-						name="parentPermission.id" id="pid">
+						name="pId" id="pid">
 					</select></td>
 				</tr>
 
