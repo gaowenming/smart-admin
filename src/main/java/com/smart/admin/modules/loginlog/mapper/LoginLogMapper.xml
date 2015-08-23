@@ -8,13 +8,14 @@
 		<result property="username" column="username" />
 		<result property="clientIp" column="clientIp" />
 		<result property="loginTime" column="loginTime" />
+		<result property="logType" column="logType" />
 	</resultMap>
 
 
 	<insert id="save" parameterType="loginLog" useGeneratedKeys="true"
 		keyProperty="id">
-		insert into ts_login_log(username,clientIp,loginTime) values
-		(#{username},#{clientIp},#{loginTime})
+		insert into ts_login_log(username,clientIp,loginTime,logType) values
+		(#{username},#{clientIp},#{loginTime},#{logType})
 	</insert>
 
 	<!-- 分页查询 -->

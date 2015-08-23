@@ -50,4 +50,15 @@ public class LoginLog implements Serializable {
 	public void setLoginTime(java.util.Date value) {
 		this.loginTime = value;
 	}
+
+	private int logType;
+
+	public int getLogType() {
+		return logType;
+	}
+
+	public void setLogType(int logType) {
+		this.logType = logType;
+	}
+
 }

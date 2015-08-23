@@ -30,6 +30,8 @@
 		<th>用户名</th>
 			
 		<th>登录IP</th>
+		
+		<th>类型</th>
 			
 		<th class="header" ><span
 				style="display: none;">loginTime</span>登录时间<i
@@ -42,6 +44,14 @@
 					<tr>
 			 <td >${item.username}</td>
 			 <td >${item.clientIp}</td>
+			 <td >
+			  <c:if test="${item.logType==1 }">
+			  登录
+			  </c:if>
+			   <c:if test="${item.logType==2 }">
+			  注销
+			  </c:if>
+			</td>
 			 <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${item.loginTime }" /></td>
 					</tr>
 		</c:forEach>

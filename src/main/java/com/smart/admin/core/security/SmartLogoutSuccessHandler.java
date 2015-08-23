@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import com.smart.admin.modules.loginlog.bean.LoginLog;
 import com.smart.admin.modules.loginlog.service.ILoginLogService;
@@ -30,8 +30,8 @@ import com.smart.admin.modules.loginlog.service.ILoginLogService;
  * @author gaowenming
  * @version V1.0
  */
-public class SmartLoginSuccessHandler implements AuthenticationSuccessHandler, InitializingBean {
-	private Logger logger = LoggerFactory.getLogger(SmartLoginSuccessHandler.class);
+public class SmartLogoutSuccessHandler implements LogoutSuccessHandler, InitializingBean {
+	private Logger logger = LoggerFactory.getLogger(SmartLogoutSuccessHandler.class);
 	private String defaultTargetUrl;
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	@Autowired
@@ -45,8 +45,8 @@ public class SmartLoginSuccessHandler implements AuthenticationSuccessHandler, I
 	}
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-		logger.info("Login success,Forwarding to " + this.defaultTargetUrl);
+	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+		logger.info("Logout success,Forwarding to " + this.defaultTargetUrl);
 		saveLoginInfo(request, authentication);
 		this.redirectStrategy.sendRedirect(request, response, this.defaultTargetUrl);
 
@@ -60,7 +60,7 @@ public class SmartLoginSuccessHandler implements AuthenticationSuccessHandler, I
 			log.setClientIp(ip);
 			log.setLoginTime(date);
 			log.setUsername(authentication.getName());
-			log.setLogType(1);
+			log.setLogType(2);
 			loginLogService.save(log);
 		} catch (Exception e) {
 			if (logger.isWarnEnabled()) {

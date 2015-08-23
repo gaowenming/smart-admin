@@ -16,7 +16,7 @@
 			authentication-failure-url="/login.jsp?error=true"
 			authentication-success-handler-ref="smartLoginSuccessHandler"  
 			default-target-url="/index.jsp" always-use-default-target="true" />
-		<logout invalidate-session="true" logout-success-url="/login.jsp" />
+		<logout invalidate-session="true" success-handler-ref="smartLogoutSuccessHandler" />
 
 		<custom-filter ref="resourceSecurityInterceptor" after="FILTER_SECURITY_INTERCEPTOR" />
 
@@ -61,6 +61,9 @@
 	<!-- 自定义的登录成功handler -->
 	<b:bean id="smartLoginSuccessHandler" class="com.smart.admin.core.security.SmartLoginSuccessHandler">  
 	    <b:property name="defaultTargetUrl" value="/index.jsp"></b:property>  
+	</b:bean> 
+	<b:bean id="smartLogoutSuccessHandler" class="com.smart.admin.core.security.SmartLogoutSuccessHandler">  
+	    <b:property name="defaultTargetUrl" value="/login.jsp"></b:property>  
 	</b:bean> 
 
 
