@@ -50,8 +50,7 @@ public class SystemConfigController extends BaseController<SystemConfig> {
 		try {
 			results = systemConfigService.findByPage(systemConfigBean, sorter, page);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("results", results);
 		return "security/systemConfig_list";
@@ -88,8 +87,7 @@ public class SystemConfigController extends BaseController<SystemConfig> {
 		try {
 			systemConfigBean = systemConfigService.get(systemConfigBean.getId());
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("dataObj", systemConfigBean);
 		return "security/systemConfig_edit";
@@ -109,8 +107,7 @@ public class SystemConfigController extends BaseController<SystemConfig> {
 			logger.info("handleAdd");
 			systemConfigService.save(systemConfigBean);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 		attr.addFlashAttribute("message", message);
@@ -137,8 +134,7 @@ public class SystemConfigController extends BaseController<SystemConfig> {
 			logger.info("handleEdit");
 			systemConfigService.update(systemConfigBean);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 		attr.addFlashAttribute("message", message);
@@ -162,8 +158,7 @@ public class SystemConfigController extends BaseController<SystemConfig> {
 		try {
 			systemConfigService.deleteBatch(ids);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 

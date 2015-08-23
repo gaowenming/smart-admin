@@ -48,8 +48,7 @@ public class LoginLogController extends BaseController<LoginLog> {
 		try {
 			results = loginLogService.findByPage(loginLog, sorter, page);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("results", results);
 		logger.info("[LoginLogController:handleList][end]");

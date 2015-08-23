@@ -49,8 +49,7 @@ public class DicController extends BaseController<Dic> {
 		try {
 			results = dicService.findByPage(dic, sorter, page);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("results", results);
 		logger.info("[DicController:handleList][end]");
@@ -93,8 +92,7 @@ public class DicController extends BaseController<Dic> {
 		try {
 			dic = dicService.get(dic.getId());
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("dataObj", dic);
 		return "dic/dic_edit";
@@ -113,8 +111,7 @@ public class DicController extends BaseController<Dic> {
 			logger.info("handleAdd");
 			dicService.save(dic);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 		attr.addFlashAttribute("message", message);
@@ -141,8 +138,7 @@ public class DicController extends BaseController<Dic> {
 			logger.info("handleEdit");
 			dicService.update(dic);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 		attr.addFlashAttribute("message", message);
@@ -166,8 +162,7 @@ public class DicController extends BaseController<Dic> {
 		try {
 			dicService.deleteBatch(ids);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 

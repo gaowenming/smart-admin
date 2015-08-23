@@ -50,8 +50,7 @@ public class PermissionController extends BaseController<Permission> {
 		try {
 			results = permissionService.findByPage(permission, sorter, page);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("results", results);
 		logger.info("[PermissionController:handleList][end]");
@@ -96,8 +95,7 @@ public class PermissionController extends BaseController<Permission> {
 			permission = permissionService.get(permission.getId());
 			list = permissionService.findAllMenuList();
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("dataObj", permission);
 		model.addAttribute("list", list);
@@ -118,8 +116,7 @@ public class PermissionController extends BaseController<Permission> {
 			logger.info("handleAdd");
 			permissionService.save(permission);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 		attr.addFlashAttribute("message", message);
@@ -146,8 +143,7 @@ public class PermissionController extends BaseController<Permission> {
 			logger.info("handleEdit");
 			permissionService.update(permission);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 		attr.addFlashAttribute("message", message);
@@ -171,8 +167,7 @@ public class PermissionController extends BaseController<Permission> {
 		try {
 			permissionService.deleteBatch(ids);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 
@@ -197,8 +192,7 @@ public class PermissionController extends BaseController<Permission> {
 			logger.info("handleFindAll");
 			list = permissionService.findAllMenuList();
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 		}
 		return list;
 	}

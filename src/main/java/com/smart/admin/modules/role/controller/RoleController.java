@@ -66,8 +66,7 @@ public class RoleController extends BaseController<Role> {
 		try {
 			results = roleService.findByPage(role, sorter, page);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("results", results);
 		logger.info("[RoleController:handleList][end]");
@@ -110,8 +109,7 @@ public class RoleController extends BaseController<Role> {
 		try {
 			role = roleService.get(role.getId());
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("dataObj", role);
 		return "security/role_edit";
@@ -131,8 +129,7 @@ public class RoleController extends BaseController<Role> {
 			logger.info("handleAdd");
 			roleService.save(role);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 		attr.addFlashAttribute("message", message);
@@ -159,8 +156,7 @@ public class RoleController extends BaseController<Role> {
 			logger.info("handleEdit");
 			roleService.update(role);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 		attr.addFlashAttribute("message", message);
@@ -184,8 +180,7 @@ public class RoleController extends BaseController<Role> {
 		try {
 			roleService.deleteBatch(ids);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 
@@ -217,7 +212,7 @@ public class RoleController extends BaseController<Role> {
 
 					SmartTree parentSmartTree = new SmartTree();
 
-					List<SubSmartTree> subListItem = new ArrayList<SubSmartTree>();
+					List<SmartTree> subListItem = new ArrayList<SmartTree>();
 					for (Permission childPermission : permission.getSubPermissions()) {
 						int childCheckstate = 0;
 						for (RolePermission rp : roleBean.getRolePermission()) {
@@ -226,7 +221,30 @@ public class RoleController extends BaseController<Role> {
 								break;
 							}
 						}
-						SubSmartTree subSmartTree = new SubSmartTree();
+						SmartTree subSmartTree = new SmartTree();
+						
+						List<SmartTree> thridListItem = new ArrayList<SmartTree>();
+						for (Permission thridchildPermission : childPermission.getSubPermissions()) {
+							int thridchildCheckstate = 0;
+							for (RolePermission rp : roleBean.getRolePermission()) {
+								if (thridchildPermission.getId() == rp.getPermission().getId()) {
+									thridchildCheckstate = 1;
+									break;
+								}
+							}
+							SmartTree thridSubSmartTree = new SmartTree();
+							
+							thridSubSmartTree.setCheckstate(thridchildCheckstate);
+							thridSubSmartTree.setHasChildren(thridchildPermission.getSubPermissions().isEmpty() ? false : true);
+							thridSubSmartTree.setId(thridchildPermission.getId().toString());
+							thridSubSmartTree.setText(thridchildPermission.getPermName());
+							thridSubSmartTree.setValue(thridchildPermission.getId().toString());
+							thridSubSmartTree.setComplete(true);
+							thridSubSmartTree.setIsexpand(true);
+							thridSubSmartTree.setShowcheck(true);
+							thridListItem.add(thridSubSmartTree);
+						}
+						
 						subSmartTree.setCheckstate(childCheckstate);
 						subSmartTree.setHasChildren(childPermission.getSubPermissions().isEmpty() ? false : true);
 						subSmartTree.setId(childPermission.getId().toString());
@@ -235,7 +253,9 @@ public class RoleController extends BaseController<Role> {
 						subSmartTree.setComplete(true);
 						subSmartTree.setIsexpand(true);
 						subSmartTree.setShowcheck(true);
+						subSmartTree.setChildNodes(thridListItem);
 						subListItem.add(subSmartTree);
+						
 					}
 
 					ListSortUtils.sort(subListItem, "id", "0");
@@ -255,8 +275,7 @@ public class RoleController extends BaseController<Role> {
 
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(),e);
 		}
 
 		model.addAttribute("dataObj", roleBean);
@@ -286,8 +305,7 @@ public class RoleController extends BaseController<Role> {
 			interceptor.reloadConfigAttribute();
 
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 

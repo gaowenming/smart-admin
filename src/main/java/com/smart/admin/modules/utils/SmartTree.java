@@ -19,7 +19,7 @@ public class SmartTree {
 	private boolean isexpand;
 	private boolean hasChildren;
 	private int checkstate;
-	private List<SubSmartTree> childNodes;
+	private List<SmartTree> childNodes;
 
 	public String getId() {
 		return id;
@@ -85,11 +85,11 @@ public class SmartTree {
 		this.checkstate = checkstate;
 	}
 
-	public List<SubSmartTree> getChildNodes() {
+	public List<SmartTree> getChildNodes() {
 		return childNodes;
 	}
 
-	public void setChildNodes(List<SubSmartTree> childNodes) {
+	public void setChildNodes(List<SmartTree> childNodes) {
 		this.childNodes = childNodes;
 	}
 

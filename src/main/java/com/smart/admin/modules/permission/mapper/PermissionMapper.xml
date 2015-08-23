@@ -43,6 +43,9 @@
 			<if test="permUrl != null">
 				and perm_url like "%"#{permUrl}"%"
 			</if>
+			<if test="permType != null">
+				and perm_type = #{permType}
+			</if>
 		</where>
 		
 		<if test="sortField != null and sortType != null">

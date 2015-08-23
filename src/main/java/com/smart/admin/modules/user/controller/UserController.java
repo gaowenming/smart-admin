@@ -61,8 +61,7 @@ public class UserController extends BaseController<User> {
 		try {
 			results = userService.findByPage(userBean, sorter, page);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("results", results);
 		return "security/user_list";
@@ -99,8 +98,7 @@ public class UserController extends BaseController<User> {
 		try {
 			userBean = userService.get(userBean.getId());
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("dataObj", userBean);
 		return "security/user_edit";
@@ -124,8 +122,7 @@ public class UserController extends BaseController<User> {
 			userBean.setStatus(User.USER_STATUS_ENABLE);
 			userService.save(userBean);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 		attr.addFlashAttribute("message", message);
@@ -156,8 +153,7 @@ public class UserController extends BaseController<User> {
 			userBean.setPassword(temp.getPassword());
 			userService.update(userBean);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 		attr.addFlashAttribute("message", message);
@@ -191,8 +187,7 @@ public class UserController extends BaseController<User> {
 
 			userService.update(userBean);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 		attr.addFlashAttribute("message", message);
@@ -216,8 +211,7 @@ public class UserController extends BaseController<User> {
 		try {
 			userService.deleteBatch(ids);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 
@@ -258,8 +252,7 @@ public class UserController extends BaseController<User> {
 				listItem.add(item);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(),e);
 		}
 		model.addAttribute("dataObj", userBean);
 		model.addAttribute("listItem", listItem);
@@ -282,8 +275,7 @@ public class UserController extends BaseController<User> {
 		try {
 			userRoleService.addUserRole(roleIds, userId);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			message = ERROR_MESSAGE;
 		}
 
@@ -318,8 +310,7 @@ public class UserController extends BaseController<User> {
 				message = "ok";
 			} catch (Exception e) {
 				message = "操作失败： " + e.getMessage();
-				logger.error(e.getMessage());
-				e.printStackTrace();
+				logger.error(e.getMessage(),e);
 			}
 		}
 		return message;

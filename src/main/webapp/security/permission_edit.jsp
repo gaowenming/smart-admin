@@ -29,7 +29,7 @@
 				</tr>
 
 				<tr>
-					<td align="right" width="25%">权限地址: <span class="required">*</span>
+					<td align="right" width="25%">权限值: <span class="required">*</span>
 					</td>
 					<td align="left"><input type="text" class="input-sm"
 						name="permUrl" id="permUrl" data-rule="required"
@@ -51,7 +51,7 @@
 					<td align="left"><select style="width: 300px;" name="permType"
 						id="permType" data-rule="required">
 							<option value="1"
-								<c:if test='${dataObj.permType==1 }'> selected=selected </c:if>>页面操作</option>
+								<c:if test='${dataObj.permType==1 }'> selected=selected </c:if>>URL</option>
 							<option value="2"
 								<c:if test='${dataObj.permType==2 }'> selected=selected </c:if>>导航菜单</option>
 					</select></td>
