@@ -53,8 +53,7 @@
 									id="selectAll" /></th>
 								<th class="header">配置名称<i class="icon-sort"></i><span
 									style="display: none;">name</span></th>
-								<th class="header">配置标识<i class="icon-sort"></i><span
-									style="display: none;">configKey</span></th>
+								<th>配置标识</th>
 								<th>配置值</th>
 								<th width="80px">操作</th>
 							</tr>

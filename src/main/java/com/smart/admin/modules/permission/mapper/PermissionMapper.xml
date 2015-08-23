@@ -44,6 +44,11 @@
 				and perm_url like "%"#{permUrl}"%"
 			</if>
 		</where>
+		
+		<if test="sortField != null and sortType != null">
+				 order by ${sortField}  ${sortType}
+		</if>
+		
 		limit #{start} ,#{pageSize}
 	</select>
 

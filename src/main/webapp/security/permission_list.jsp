@@ -50,17 +50,17 @@
 							<tr>
 								<th width="50px"><input type="checkbox" name="selectAll"
 									id="selectAll" /></th>
-								<th class="header"><span style="display: none;">permName</span>权限名称<i
+								<th class="header"><span style="display: none;">perm_name</span>权限名称<i
 									class="icon-sort"></i></th>
 
-								<th class="header"><span style="display: none;">permUrl</span>权限地址<i
+								<th class="header"><span style="display: none;">perm_url</span>权限地址<i
 									class="icon-sort"></i></th>
 
 
-								<th class="header" width="10%"><span style="display: none;">permType</span>类别<i
+								<th class="header" width="10%"><span style="display: none;">perm_type</span>类别<i
 									class="icon-sort"></i></th>
 
-								<th class="header" width="8%"><span style="display: none;">permOrder</span>顺序<i
+								<th class="header" width="8%"><span style="display: none;">perm_order</span>顺序<i
 									class="icon-sort"></i></th>
 
 								<th>备注</th>

@@ -26,6 +26,11 @@
 				 username like "%"#{username}"%"
 			</if>
 		</where>
+		
+		<if test="sortField != null and sortType != null">
+				 order by ${sortField}  ${sortType}
+		</if>
+		
 		limit #{start} ,#{pageSize}
 	</select>
 
