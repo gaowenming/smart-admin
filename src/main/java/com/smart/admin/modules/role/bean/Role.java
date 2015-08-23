@@ -3,6 +3,8 @@ package com.smart.admin.modules.role.bean;
 import java.io.Serializable;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Description: <Role>. <br>
  * 
@@ -69,7 +71,11 @@ public class Role implements Serializable {
 	}
 
 	public void setRoleCode(java.lang.String roleCode) {
-		this.roleCode = roleCode;
+		if (StringUtils.isNoneEmpty(roleCode) && !roleCode.startsWith("ROLE_")) {
+			this.roleCode = "ROLE_" + roleCode;
+		} else {
+			this.roleCode = roleCode;
+		}
 	}
 
 }

@@ -107,7 +107,7 @@
     </select>
     
       <select id="findAllMenuList" resultMap="permissionResultMap">
-         select * from ts_permission where perm_type = 2 order by perm_order desc 
+         select * from ts_permission where perm_type = 2 or perm_type = 0 order by perm_order desc 
       </select>
 
 

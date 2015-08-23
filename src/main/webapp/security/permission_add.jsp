@@ -76,10 +76,10 @@
 				</tr>
 
 				<tr>
-					<td align="right" width="25%">备注: <span class="required">*</span>
+					<td align="right" width="25%">备注:
 					</td>
 					<td align="left"><input type="text" class="input-sm"
-						name="remark" id="remark" data-rule="required"
+						name="remark" id="remark" 
 						style="width: 300px;"></td>
 				</tr>
 
