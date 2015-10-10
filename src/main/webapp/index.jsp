@@ -152,9 +152,6 @@
 						</button>
 					</div>
 
-					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-						<span class="btn btn-success no-hover"></span>
-					</div>
 				</div>
 				<!-- #sidebar-shortcuts -->
 
