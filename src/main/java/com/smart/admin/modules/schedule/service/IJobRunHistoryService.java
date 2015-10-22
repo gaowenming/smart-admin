@@ -1,0 +1,1 @@
+package com.smart.admin.modules.schedule.service;import com.smart.admin.core.IBaseService;import com.smart.admin.modules.schedule.bean.JobRunHistory;/** * Description: <jobRunHistoryservice>. <br> * <p> * <service接口层> * </p> * generate time:2015-10-21 9:29:28 *  * @version V1.0 */public interface IJobRunHistoryService extends IBaseService<JobRunHistory>{	}

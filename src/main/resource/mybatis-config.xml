@@ -17,6 +17,7 @@
 	    <typeAlias alias="permission" type="com.smart.admin.modules.permission.bean.Permission" />
 	    <typeAlias alias="rolePermission" type="com.smart.admin.modules.role.bean.RolePermission" />
 	    <typeAlias alias="userRole" type="com.smart.admin.modules.role.bean.UserRole" />
+	    <typeAlias alias="jobRunHistory" type="com.smart.admin.modules.schedule.bean.JobRunHistory" />
 	</typeAliases>
 	
 	

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smart.admin.modules.schedule.mapper.JobRunHistoryMapper">
+
+	<insert id="save" parameterType="jobRunHistory"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into tb_job_run_history(
+		job_name, job_group, job_class, trigger_name, trigger_group,
+		exception_flag, result, exception_stack, fire_time,
+		previous_fire_time, next_fire_time, refire_count, node_id
+		) values (
+		#{jobName}, #{jobGroup}, #{jobClass}, #{triggerName},
+		#{triggerGroup},
+		#{exceptionFlag}, #{result}, #{exceptionStack},
+		#{fireTime},
+		#{previousFireTime}, #{nextFireTime}, #{refireCount},
+		#{nodeId}
+		)
+	</insert>
+
+	<resultMap id="jobRunHistoryMap" type="jobRunHistory">
+		<result property="id" column="id" />
+		<result property="jobName" column="job_name" />
+		<result property="jobGroup" column="job_group" />
+		<result property="jobClass" column="job_class" />
+		<result property="triggerName" column="trigger_name" />
+		<result property="triggerGroup" column="trigger_group" />
+		<result property="exceptionFlag" column="exception_flag" />
+		<result property="result" column="result" />
+		<result property="exceptionStack" column="exception_stack" />
+		<result property="fireTime" column="fire_time" />
+		<result property="previousFireTime" column="previous_fire_time" />
+		<result property="nextFireTime" column="next_fire_time" />
+		<result property="refireCount" column="refire_count" />
+		<result property="nodeId" column="node_id" />
+	</resultMap>
+
+	<!-- 分页查询 -->
+	<select id="findPageList" parameterType="java.util.Map"
+		resultMap="jobRunHistoryMap">
+		
+		select * from tb_job_run_history
+		
+		<where>
+		
+			<if test="jobName != null and jobName !='' ">
+				 job_name like "%"#{jobName}"%"
+			</if>
+			
+			<if test="resultState ==1">
+				and result = 'SUCCESS'
+			</if>
+			
+			<if test="resultState ==0">
+				<![CDATA[ and result <> 'SUCCESS' 	]]>
+			</if>
+			
+			<if test="startTime != null">
+				and fire_time &gt;= #{startTime} 
+			</if>
+			
+			<if test="endTime != null">
+				 and fire_time &lt;= #{endTime}
+			</if>
+		</where>
+	
+		<if test="sortField != null and sortType != null">
+			order by ${sortField} ${sortType}
+		</if>
+
+		limit #{start} ,#{pageSize}
+	</select>
+
+	<select id="count" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from tb_job_run_history
+		<where>
+				<if test="jobName != null and jobName !='' ">
+				 job_name like "%"#{jobName}"%"
+			</if>
+			
+			<if test="resultState ==1">
+				and result = 'SUCCESS'
+			</if>
+			
+			<if test="resultState ==0">
+				<![CDATA[ and result <> 'SUCCESS' 	]]>
+			</if>
+			
+			<if test="startTime != null">
+				and fire_time &gt;= #{startTime} 
+			</if>
+			
+			<if test="endTime != null">
+				 and fire_time &lt;= #{endTime} 
+			</if>
+		</where>
+	</select>
+
+	<select id="get" resultMap="jobRunHistoryMap" parameterType="Integer">
+		select * from tb_job_run_history where id=#{id}
+	</select>
+
+</mapper>
+

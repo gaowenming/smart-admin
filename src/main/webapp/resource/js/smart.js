@@ -86,9 +86,7 @@ $(function(){
 		$("#queryForm").find(":text").each(function(){
 			this.value = '' ;
 		});
-		$("#queryForm").find(":select").each(function(){
-			this.value = '' ;
-		});
+		
 		
 	});
 	

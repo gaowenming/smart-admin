@@ -187,6 +187,7 @@
 								<li><a href="${basePath}dic/list.do" target="contentIframe">
 										<i class="icon-star"></i> <span class="menu-text">字典管理</span>
 								</a></li>
+								
 
 							</ul></li>
 					</sec:authorize>
@@ -204,6 +205,30 @@
 								<li><a href="${basePath}loginLog/list.do"
 									target="contentIframe"> <i class="icon-star"></i> <span
 										class="menu-text">登录日志</span>
+								</a></li>
+
+							</ul></li>
+					</sec:authorize>
+					
+					
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li><a href="#" class="dropdown-toggle"
+							style="color: #2B7DBC"> <i class="icon-bell"></i> <span
+								style="font-weight: bold; color: #2B7DBC" class="menu-text">任务调度</span>
+								<b class="arrow icon-angle-down"></b>
+						</a>
+							<ul class="submenu">
+
+								<li><a href="${basePath}schedule/list.do" target="contentIframe">
+										<i class="icon-star"></i> <span class="menu-text">任务配置</span>
+								</a></li>
+								
+								<li><a href="${basePath}schedule/listRunning.do" target="contentIframe">
+										<i class="icon-star"></i> <span class="menu-text">运行中的任务</span>
+								</a></li>
+								
+								<li><a href="${basePath}jobRunHistory/list.do" target="contentIframe">
+										<i class="icon-star"></i> <span class="menu-text">运行历史</span>
 								</a></li>
 
 							</ul></li>

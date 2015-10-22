@@ -3,6 +3,8 @@ package com.smart.admin.core.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -16,14 +18,14 @@ import org.springframework.web.bind.annotation.InitBinder;
  */
 public abstract class BaseController<T> {
 
-	public static String SUCCESS_MESSAGE = "操作成功";
-	public static String ERROR_MESSAGE = "操作失败";
+    public static String SUCCESS_MESSAGE = "操作成功";
 
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
+    public static String ERROR_MESSAGE = "操作失败";
 
-	// protected final static Logger logger =
-	// LoggerFactory.getLogger(Class.class.getClass());
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+    }
+
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 }
